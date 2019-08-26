@@ -14,7 +14,7 @@ module.exports = {
     ['link', { rel: 'icon', href: '/logo.png' }]
   ],
   port: 8080,
-  // dest: 'dist',
+  dest: 'public',
   markdown: {
     lineNumbers: true
   },
