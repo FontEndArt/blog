@@ -1,0 +1,36 @@
+Arguments: 
+  /usr/local/bin/node /Users/wuhaoran/.yarn/bin/yarn.js init
+
+PATH: 
+  /Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/wuhaoran/.yarn/bin:/Users/wuhaoran/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/wuhaoran/.yarn/bin:/Users/wuhaoran/.config/yarn/global/node_modules/.bin
+
+Yarn version: 
+  1.16.0
+
+Node version: 
+  10.16.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/Users/wuhaoran/.yarn/lib/cli.js:125850:13)
+      at Interface.emit (events.js:198:13)
+      at Interface._ttyWrite (readline.js:801:16)
+      at ReadStream.onkeypress (readline.js:184:10)
+      at ReadStream.emit (events.js:198:13)
+      at emitKeys (internal/readline.js:424:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1075:36)
+      at ReadStream.emit (events.js:198:13)
+      at addChunk (_stream_readable.js:288:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
