@@ -11,12 +11,13 @@ cd docs/.vuepress/dist
 
 # 如果是发布到自定义域名
 echo 'xiaoranzife.com' > CNAME
-echo '# 前端进阶与被虐笔记'  >> README.md
-echo '作者：武浩然@前端小然子'  >> README.md
+cp ../../../README.md ./README.md
+# echo '# 前端进阶与被虐笔记'  >> README.md
+# echo '作者：武浩然@前端小然子'  >> README.md
 
 git init
 git add -A
-git commit -m "$1"
+git commit -m "build commit"
 
 # 如果发布到 https://<USERNAME>.github.io
 git push -f https://github.com/FontEndArt/FontEndArt.github.io.git master

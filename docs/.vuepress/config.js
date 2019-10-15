@@ -2,16 +2,15 @@ const getLinks = require('../../walk-test');
 
 const Nav = [
   { text: '进阶', link: '/guide/' },
-  { text: '求虐', link: '/mianshi/' },
-  { text: '小金库', link: 'https://xn--jjq406g.xn--6qq986b3xl/' }
+  // { text: '求虐', link: '/mianshi/' },
 ];
 
 module.exports = {
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: '前端进阶与被虐笔记',
-      description: '估计是全网最菜的前端进阶项目'
+      title: '前端小然子的博客',
+      description: '客官里面请～'
     }
   },
   // theme: "theme",
@@ -40,7 +39,7 @@ module.exports = {
       '/mianshi/': getLinks('mianshi'),
     },
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
-    repo: 'https://github.com/FontEndArt/FontEndArt.github.io',
+    repo: 'https://github.com/FontEndArt/blog',
     repoLabel: 'GitHub',
     author: '前端小然子',
     scss: { indentedSyntax: true },

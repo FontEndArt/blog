@@ -32,25 +32,25 @@ export default {
   components: { NavLink },
   data() {
     return {
-      heroImage: "/images/qiunve.png",
-      heroAlt: "指天求虐",
+      heroImage: "/images/xiaoer.png",
+      heroAlt: "客官里面请～",
       heroText: "",
       tagline: "",
-      actionText: "快速上手 →",
+      actionText: "贵宾一位 →",
       actionLinks: "/guide/",
       features: [
-        {
-          title: "进阶至上",
-          details: ["地基可不能太浅!", "以菜鸟进阶必备知识为基础，夯实基础。"]
-        },
-        {
-          title: "菜鸟思维",
-          details: ["脑子是个好东西!", "专注于基础实现，让阅读起来不费脑子。"]
-        },
-        {
-          title: "专注求虐",
-          details: ["不知道怕是什么!", "从最后的起跑线开始，指天求虐。"]
-        }
+        // {
+        //   title: "任君挑选",
+        //   details: ["本店有各大菜系", "都是由上好的材料制作而成"]
+        // },
+        // {
+        //   title: "二楼雅间",
+        //   details: ["雅间更加精致", ""]
+        // },
+        // {
+        //   title: "厨师进阶",
+        //   details: ["开源项目", "从最后的起跑线开始，指天求虐。"]
+        // }
       ],
       footerContent: "MIT Licensed | Copyright © 2018-present xiaoranzi"
     };
@@ -146,10 +146,16 @@ export default {
   }
 
   .footer {
+    width 100%;
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
     padding: 2rem;
     border-top: 1px solid $borderColor;
     text-align: center;
     color: lighten($textColor, 25%);
+    box-sizing: border-box;
+    line-height: 1.5em;
   }
 }
 
