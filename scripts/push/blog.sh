@@ -6,12 +6,6 @@ set -e
 # 生成静态文件
 npm run docs:build
 
-# 如果是发布到自定义域名
-echo '# 前端进阶与被虐笔记'  >> README.md
-echo '作者：武浩然@前端小然子'  >> README.md
-echo '地址：[https://xiaoranzife.com](https://xiaoranzife.com 前端进阶与被虐笔记)'  >> README.md
-
-
 git add .
 git commit -m "$1"
 
