@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>深入理解圣杯布局和双飞翼布局 | 前端进阶与被虐笔记</title>
+    <meta name="description" content="估计是全网最菜的前端进阶项目">
+    <link rel="icon" href="/logo.png">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.f9363d41.css" as="style"><link rel="preload" href="/assets/js/app.8de1be90.js" as="script"><link rel="preload" href="/assets/js/6.1adb1c7b.js" as="script"><link rel="preload" href="/assets/js/1.1218976d.js" as="script"><link rel="preload" href="/assets/js/25.5bff52ee.js" as="script"><link rel="prefetch" href="/assets/js/10.bb412887.js"><link rel="prefetch" href="/assets/js/11.49ee099c.js"><link rel="prefetch" href="/assets/js/12.78749671.js"><link rel="prefetch" href="/assets/js/13.1c48f304.js"><link rel="prefetch" href="/assets/js/14.02e3a5d7.js"><link rel="prefetch" href="/assets/js/15.49ffd421.js"><link rel="prefetch" href="/assets/js/16.03822b3b.js"><link rel="prefetch" href="/assets/js/17.bd857204.js"><link rel="prefetch" href="/assets/js/18.511b9e96.js"><link rel="prefetch" href="/assets/js/19.9b8348ac.js"><link rel="prefetch" href="/assets/js/2.af113826.js"><link rel="prefetch" href="/assets/js/20.c76f47fc.js"><link rel="prefetch" href="/assets/js/21.05526a0e.js"><link rel="prefetch" href="/assets/js/22.d24ef240.js"><link rel="prefetch" href="/assets/js/23.17857844.js"><link rel="prefetch" href="/assets/js/24.2ae90c10.js"><link rel="prefetch" href="/assets/js/26.722216e6.js"><link rel="prefetch" href="/assets/js/27.04b64b9e.js"><link rel="prefetch" href="/assets/js/28.828caa17.js"><link rel="prefetch" href="/assets/js/29.2e9e3be0.js"><link rel="prefetch" href="/assets/js/30.ecf00f49.js"><link rel="prefetch" href="/assets/js/31.0cb9e0d1.js"><link rel="prefetch" href="/assets/js/32.7a7b95a5.js"><link rel="prefetch" href="/assets/js/33.02521a09.js"><link rel="prefetch" href="/assets/js/34.57ff7405.js"><link rel="prefetch" href="/assets/js/35.667ca8d1.js"><link rel="prefetch" href="/assets/js/36.67471f43.js"><link rel="prefetch" href="/assets/js/37.b76ecfb7.js"><link rel="prefetch" href="/assets/js/38.d5bcee42.js"><link rel="prefetch" href="/assets/js/39.d7e4b10f.js"><link rel="prefetch" href="/assets/js/40.af701e36.js"><link rel="prefetch" href="/assets/js/41.944f162b.js"><link rel="prefetch" href="/assets/js/42.86ada6ef.js"><link rel="prefetch" href="/assets/js/43.bfd146b0.js"><link rel="prefetch" href="/assets/js/44.d910941f.js"><link rel="prefetch" href="/assets/js/45.30e53f45.js"><link rel="prefetch" href="/assets/js/46.c2a954d6.js"><link rel="prefetch" href="/assets/js/47.8c0b8cb8.js"><link rel="prefetch" href="/assets/js/48.0d069f6c.js"><link rel="prefetch" href="/assets/js/49.cad7de16.js"><link rel="prefetch" href="/assets/js/5.652ef782.js"><link rel="prefetch" href="/assets/js/50.20ce5ed6.js"><link rel="prefetch" href="/assets/js/51.387bcd1b.js"><link rel="prefetch" href="/assets/js/52.00eee4e6.js"><link rel="prefetch" href="/assets/js/53.5d145521.js"><link rel="prefetch" href="/assets/js/54.1369055e.js"><link rel="prefetch" href="/assets/js/55.780adf25.js"><link rel="prefetch" href="/assets/js/56.313b9935.js"><link rel="prefetch" href="/assets/js/57.c077baf0.js"><link rel="prefetch" href="/assets/js/7.6f9289b7.js"><link rel="prefetch" href="/assets/js/8.973404d8.js"><link rel="prefetch" href="/assets/js/9.e24b5c13.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.33849eb6.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f9363d41.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">前端进阶与被虐笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">进阶</a></div><div class="nav-item"><a href="/mianshi/" class="nav-link">求虐</a></div><div class="nav-item"><a href="https://xn--jjq406g.xn--6qq986b3xl/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  小金库
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/FontEndArt/FontEndArt.github.io" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">进阶</a></div><div class="nav-item"><a href="/mianshi/" class="nav-link">求虐</a></div><div class="nav-item"><a href="https://xn--jjq406g.xn--6qq986b3xl/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  小金库
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/FontEndArt/FontEndArt.github.io" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>前言</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/" class="sidebar-link">求虐成长手册</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Vue</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/vue/vue-dom-diff.html" class="sidebar-link">对 Vue Dom Diff 的理解</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue 的测试目录</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group is-sub-group depth-1"><p class="sidebar-heading open"><span>vue 的测试目录</span> <!----></p> <!----></section></li><li><a href="/guide/vue/test/test.html" class="sidebar-link">测试深层目录</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>React</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/react/fiber.html" class="sidebar-link">Fiber浅析</a></li><li><a href="/guide/react/time-slice.html" class="sidebar-link">对 Time Slice 的理解</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>前端基础</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/jichu/kuayu.html" class="sidebar-link">对前端跨域方案的认知总结</a></li><li><a href="/guide/jichu/this.html" class="sidebar-link">浅谈this指向</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>HTML</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/html/descript.html" class="sidebar-link">对 html 的浅认知</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>CSS</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/css/hailang.html" class="sidebar-link">css掩人耳目式海浪动效🌊，这可能是最简单的实现方式了吧？</a></li><li><a href="/guide/css/perspective.html" class="sidebar-link">透过3D立方体深入理解perspective和translateZ的关系</a></li><li><a href="/guide/css/sanlan.html" class="active sidebar-link">深入理解圣杯布局和双飞翼布局</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/css/sanlan.html#前言" class="sidebar-link">前言</a></li><li class="sidebar-sub-header"><a href="/guide/css/sanlan.html#字面意思" class="sidebar-link">字面意思</a></li><li class="sidebar-sub-header"><a href="/guide/css/sanlan.html#两者本质" class="sidebar-link">两者本质</a></li><li class="sidebar-sub-header"><a href="/guide/css/sanlan.html#圣杯布局" class="sidebar-link">圣杯布局</a></li><li class="sidebar-sub-header"><a href="/guide/css/sanlan.html#双飞翼布局" class="sidebar-link">双飞翼布局</a></li><li class="sidebar-sub-header"><a href="/guide/css/sanlan.html#总结" class="sidebar-link">总结</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="深入理解圣杯布局和双飞翼布局"><a href="#深入理解圣杯布局和双飞翼布局" aria-hidden="true" class="header-anchor">#</a> 深入理解圣杯布局和双飞翼布局</h1> <h2 id="前言"><a href="#前言" aria-hidden="true" class="header-anchor">#</a> 前言</h2> <p>最近我朋友在群里发了一张图，说为什么main的宽度100%了，sub还是可以覆盖它呢？看来是时候带他回忆一波经典的圣杯布局和双飞翼布局了。正好最近看到好多面试题都有提到。 /笑哭</p> <p>群内链接如下图：</p> <p><img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0c9554c172710?w=1280&amp;h=381&amp;f=png&amp;s=54512" alt=""></p> <h2 id="字面意思"><a href="#字面意思" aria-hidden="true" class="header-anchor">#</a> 字面意思</h2> <p>圣呗布局和双飞翼布局从字面意思来看是这样的：</p> <blockquote><p>一个像圣杯或者像展翅的禽类这样的布局</p></blockquote> <p><strong>通俗的来说就是左右两栏固定宽度，中间部分自适应的三栏布局。</strong></p> <h2 id="两者本质"><a href="#两者本质" aria-hidden="true" class="header-anchor">#</a> 两者本质</h2> <p><img src="https://user-gold-cdn.xitu.io/2019/4/12/16a101259cada47c?w=1147&amp;h=643&amp;f=png&amp;s=53266" alt=""></p> <h2 id="圣杯布局"><a href="#圣杯布局" aria-hidden="true" class="header-anchor">#</a> 圣杯布局</h2> <ol><li>首先把left、middle、right都放出来</li> <li>给它们三个设置上float: left, 脱离文档流；</li> <li>一定记得给container设置上overflow: hidden; 可以形成BFC撑开文档</li> <li>left、right设置上各自的宽度</li> <li>middle设置width: 100%;</li></ol> <p><strong>接下来比较重要了：</strong></p> <ol start="6"><li>给left、middle、right设置position: relative;</li> <li>left设置 left: -leftWidth, right设置 right: -rightWidth;</li> <li>container设置padding: 0, rightWidth, 0, leftWidth;</li></ol> <hr> <p>我注意到圣杯布局的left、middle、right都有position: relative;</p> <p>设:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>.left width:200px
+.right width:220px
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>那么下面的这些属性为什么要存在？</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>.container上面的paddind
+.left 的left: -200px;
+.right 的right: -220px;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p><strong>因为不这样设置  会遮挡middle的内容</strong></p> <p>可以自己尝试一下下</p> <hr> <p>圣杯布局示例代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;圣杯布局&lt;/title&gt;
+  &lt;style&gt;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header,
+    .footer {
+      height: 100px;
+      line-height: 100px;
+      background-color: green;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+
+    .footer {
+      background-color: goldenrod;
+    }
+
+    .container {
+      padding: 0 220px 0 200px;
+      overflow: hidden;
+    }
+
+    .left,
+    .middle,
+    .right {
+      position: relative;
+      float: left;
+      min-height: 130px;
+      word-break: break-all;
+    }
+
+    .left {
+      margin-left: -100%;
+      left: -200px;
+      width: 200px;
+      background-color: red;
+    }
+
+    .right {
+      margin-left: -220px;
+      right: -220px;
+      width: 220px;
+      background-color: green;
+    }
+
+    .middle {
+      width: 100%;
+      background-color: blue;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class=&quot;header&quot;&gt;header&lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;middle&quot;&gt;
+      &lt;h4&gt;middle&lt;/h4&gt;
+      &lt;p&gt;
+        middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+        middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+        middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+        middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+        middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+        middlemiddlemiddlemiddlemiddle
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;left&quot;&gt;
+      &lt;h4&gt;left&lt;/h4&gt;
+      &lt;p&gt;
+        leftleftleftleftleftleftleftleftleftleftleftleft
+        leftleftleftleftleftleftleftleftleftleftleftleft
+        leftleftleftleftleftleftleftleftleftleftleftleft
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;right&quot;&gt;
+      &lt;h4&gt;right&lt;/h4&gt;
+      &lt;p&gt;
+        rightrightrightrightrightrightrightrightrightright
+        rightrightrightrightrightrightrightrightrightright
+        rightrightrightrightrightrightright
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;footer&quot;&gt;footer&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br></div></div><hr> <h2 id="双飞翼布局"><a href="#双飞翼布局" aria-hidden="true" class="header-anchor">#</a> 双飞翼布局</h2> <p>双飞翼布局和圣杯布局很类似，不过是在middle的div里又插入一个div，通过调整内部div的margin值，实现中间栏自适应，内容写到内部div中。</p> <p>这样可以先做好主体部分，然后再将附属部分放到合适的位置！</p> <ol><li>首先把left、middle、right都放出来, middle中增加inner</li> <li>给它们三个设置上float: left, 脱离文档流；</li> <li>一定记得给container设置上overflow: hidden; 可以形成BFC撑开文档</li> <li>left、right设置上各自的宽度</li> <li>middle设置width: 100%;</li></ol> <p><strong>接下来与圣杯布局不一样的地方：</strong></p> <ol start="6"><li>left设置 margin-left: -100%, right设置 right: -rightWidth;</li> <li>container设置padding: 0, rightWidth, 0, leftWidth;</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;双飞翼布局&lt;/title&gt;
+  &lt;style&gt;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header,
+    .footer {
+      height: 100px;
+      line-height: 100px;
+      background-color: green;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+
+    .footer {
+      background-color: goldenrod;
+    }
+
+    .container {
+      overflow: hidden;
+    }
+
+    .left,
+    .middle,
+    .right {
+      float: left;
+      min-height: 130px;
+      word-break: break-all;
+    }
+
+    .left {
+      margin-left: -100%;
+      width: 200px;
+      background-color: red;
+    }
+
+    .right {
+      margin-left: -220px;
+      width: 220px;
+      background-color: green;
+    }
+
+    .middle {
+      width: 100%;
+      height: 100%;
+      background-color: blue;
+    }
+
+    .inner {
+      margin: 0 220px 0 200px;
+      min-height: 130px;
+      background: blue;
+      word-break: break-all;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class=&quot;header&quot;&gt;header&lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;middle&quot;&gt;
+      &lt;div class=&quot;inner&quot;&gt;
+        &lt;h4&gt;middle&lt;/h4&gt;
+        &lt;p&gt;
+          middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+          middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+          middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+          middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+          middlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+          middlemiddlemiddlemiddlemiddle
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;left&quot;&gt;
+      &lt;h4&gt;left&lt;/h4&gt;
+      &lt;p&gt;
+        leftleftleftleftleftleftleftleftleftleftleftleft
+        leftleftleftleftleftleftleftleftleftleftleftleft
+        leftleftleftleftleftleftleftleftleftleftleftleft
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;right&quot;&gt;
+      &lt;h4&gt;right&lt;/h4&gt;
+      &lt;p&gt;
+        rightrightrightrightrightrightrightrightrightright
+        rightrightrightrightrightrightrightrightrightright
+        rightrightrightrightrightrightright
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;footer&quot;&gt;footer&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br></div></div><h2 id="总结"><a href="#总结" aria-hidden="true" class="header-anchor">#</a> 总结</h2> <p>圣杯布局在DOM结构上显得更加直观和自然；</p> <p>双飞翼布局省去了很多css，而且由于不用使用定位，可以获得比圣杯布局更小最小宽度；</p> <p>说到这里需要注意一下  由于双飞翼布局会一直随着浏览器可视区域宽度减小从而不断挤压中间部分宽度。</p> <p>所以需要设置给页面一个min-width &gt; LeftWidth + RightWidth；</p> <hr> <p>还有一件事就是他们在单独部分内容扩充的时候，童鞋们可能发现了 底部会参差不齐。</p> <p>在我的老师那里知道了最简单的解决办法 / 笑哭</p> <blockquote><p>给left、middle、right设置上 padding-bottom: 9999px; margin-bottom: -9999px;</p></blockquote> <p>就让他变得无限高，但是又给他送回去了。真的是让我脑洞大开！！！</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/guide/css/perspective.html" class="prev">
+          透过3D立方体深入理解perspective和translateZ的关系
+        </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.8de1be90.js" defer></script><script src="/assets/js/6.1adb1c7b.js" defer></script><script src="/assets/js/1.1218976d.js" defer></script><script src="/assets/js/25.5bff52ee.js" defer></script>
+  </body>
+</html>

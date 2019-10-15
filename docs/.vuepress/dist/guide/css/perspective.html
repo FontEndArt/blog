@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>透过3D立方体深入理解perspective和translateZ的关系 | 前端进阶与被虐笔记</title>
+    <meta name="description" content="估计是全网最菜的前端进阶项目">
+    <link rel="icon" href="/logo.png">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.f9363d41.css" as="style"><link rel="preload" href="/assets/js/app.8de1be90.js" as="script"><link rel="preload" href="/assets/js/6.1adb1c7b.js" as="script"><link rel="preload" href="/assets/js/1.1218976d.js" as="script"><link rel="preload" href="/assets/js/24.2ae90c10.js" as="script"><link rel="prefetch" href="/assets/js/10.bb412887.js"><link rel="prefetch" href="/assets/js/11.49ee099c.js"><link rel="prefetch" href="/assets/js/12.78749671.js"><link rel="prefetch" href="/assets/js/13.1c48f304.js"><link rel="prefetch" href="/assets/js/14.02e3a5d7.js"><link rel="prefetch" href="/assets/js/15.49ffd421.js"><link rel="prefetch" href="/assets/js/16.03822b3b.js"><link rel="prefetch" href="/assets/js/17.bd857204.js"><link rel="prefetch" href="/assets/js/18.511b9e96.js"><link rel="prefetch" href="/assets/js/19.9b8348ac.js"><link rel="prefetch" href="/assets/js/2.af113826.js"><link rel="prefetch" href="/assets/js/20.c76f47fc.js"><link rel="prefetch" href="/assets/js/21.05526a0e.js"><link rel="prefetch" href="/assets/js/22.d24ef240.js"><link rel="prefetch" href="/assets/js/23.17857844.js"><link rel="prefetch" href="/assets/js/25.5bff52ee.js"><link rel="prefetch" href="/assets/js/26.722216e6.js"><link rel="prefetch" href="/assets/js/27.04b64b9e.js"><link rel="prefetch" href="/assets/js/28.828caa17.js"><link rel="prefetch" href="/assets/js/29.2e9e3be0.js"><link rel="prefetch" href="/assets/js/30.ecf00f49.js"><link rel="prefetch" href="/assets/js/31.0cb9e0d1.js"><link rel="prefetch" href="/assets/js/32.7a7b95a5.js"><link rel="prefetch" href="/assets/js/33.02521a09.js"><link rel="prefetch" href="/assets/js/34.57ff7405.js"><link rel="prefetch" href="/assets/js/35.667ca8d1.js"><link rel="prefetch" href="/assets/js/36.67471f43.js"><link rel="prefetch" href="/assets/js/37.b76ecfb7.js"><link rel="prefetch" href="/assets/js/38.d5bcee42.js"><link rel="prefetch" href="/assets/js/39.d7e4b10f.js"><link rel="prefetch" href="/assets/js/40.af701e36.js"><link rel="prefetch" href="/assets/js/41.944f162b.js"><link rel="prefetch" href="/assets/js/42.86ada6ef.js"><link rel="prefetch" href="/assets/js/43.bfd146b0.js"><link rel="prefetch" href="/assets/js/44.d910941f.js"><link rel="prefetch" href="/assets/js/45.30e53f45.js"><link rel="prefetch" href="/assets/js/46.c2a954d6.js"><link rel="prefetch" href="/assets/js/47.8c0b8cb8.js"><link rel="prefetch" href="/assets/js/48.0d069f6c.js"><link rel="prefetch" href="/assets/js/49.cad7de16.js"><link rel="prefetch" href="/assets/js/5.652ef782.js"><link rel="prefetch" href="/assets/js/50.20ce5ed6.js"><link rel="prefetch" href="/assets/js/51.387bcd1b.js"><link rel="prefetch" href="/assets/js/52.00eee4e6.js"><link rel="prefetch" href="/assets/js/53.5d145521.js"><link rel="prefetch" href="/assets/js/54.1369055e.js"><link rel="prefetch" href="/assets/js/55.780adf25.js"><link rel="prefetch" href="/assets/js/56.313b9935.js"><link rel="prefetch" href="/assets/js/57.c077baf0.js"><link rel="prefetch" href="/assets/js/7.6f9289b7.js"><link rel="prefetch" href="/assets/js/8.973404d8.js"><link rel="prefetch" href="/assets/js/9.e24b5c13.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.33849eb6.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f9363d41.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">前端进阶与被虐笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">进阶</a></div><div class="nav-item"><a href="/mianshi/" class="nav-link">求虐</a></div><div class="nav-item"><a href="https://xn--jjq406g.xn--6qq986b3xl/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  小金库
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/FontEndArt/FontEndArt.github.io" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">进阶</a></div><div class="nav-item"><a href="/mianshi/" class="nav-link">求虐</a></div><div class="nav-item"><a href="https://xn--jjq406g.xn--6qq986b3xl/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  小金库
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/FontEndArt/FontEndArt.github.io" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>前言</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/" class="sidebar-link">求虐成长手册</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Vue</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/vue/vue-dom-diff.html" class="sidebar-link">对 Vue Dom Diff 的理解</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue 的测试目录</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group is-sub-group depth-1"><p class="sidebar-heading open"><span>vue 的测试目录</span> <!----></p> <!----></section></li><li><a href="/guide/vue/test/test.html" class="sidebar-link">测试深层目录</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>React</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/react/fiber.html" class="sidebar-link">Fiber浅析</a></li><li><a href="/guide/react/time-slice.html" class="sidebar-link">对 Time Slice 的理解</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>前端基础</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/jichu/kuayu.html" class="sidebar-link">对前端跨域方案的认知总结</a></li><li><a href="/guide/jichu/this.html" class="sidebar-link">浅谈this指向</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>HTML</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/html/descript.html" class="sidebar-link">对 html 的浅认知</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>CSS</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/css/hailang.html" class="sidebar-link">css掩人耳目式海浪动效🌊，这可能是最简单的实现方式了吧？</a></li><li><a href="/guide/css/perspective.html" class="active sidebar-link">透过3D立方体深入理解perspective和translateZ的关系</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#前言" class="sidebar-link">前言</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#准备工作" class="sidebar-link">准备工作</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#要开始讲咯" class="sidebar-link">要开始讲咯~</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#立方体原理" class="sidebar-link">立方体原理</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#全景图" class="sidebar-link">全景图</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#制作立方体" class="sidebar-link">制作立方体</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#单独讲解perspective和translatez" class="sidebar-link">单独讲解perspective和translateZ</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#重中之重" class="sidebar-link">重中之重</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#结语" class="sidebar-link">结语</a></li><li class="sidebar-sub-header"><a href="/guide/css/perspective.html#实践是检验真理的唯一标准" class="sidebar-link">实践是检验真理的唯一标准</a></li></ul></li><li><a href="/guide/css/sanlan.html" class="sidebar-link">深入理解圣杯布局和双飞翼布局</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="透过3d立方体深入理解perspective和translatez的关系"><a href="#透过3d立方体深入理解perspective和translatez的关系" aria-hidden="true" class="header-anchor">#</a> 透过3D立方体深入理解perspective和translateZ的关系</h1> <h2 id="前言"><a href="#前言" aria-hidden="true" class="header-anchor">#</a> 前言</h2> <p>对于js全景图向往已久，貌似从16年开始看到的。当时自己还是一个小菜鸡（虽然现在也不是大佬），由于工作原因前端的很多方面都没有及时了解，现在恶补中。。。</p> <h2 id="准备工作"><a href="#准备工作" aria-hidden="true" class="header-anchor">#</a> 准备工作</h2> <p>了解transform中的一些基本概念，比如：</p> <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/rotate" target="_blank" rel="noopener noreferrer">rotate<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 旋转</p> <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/translate" target="_blank" rel="noopener noreferrer">translate<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 定义 2D 转换</p> <p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ" target="_blank" rel="noopener noreferrer">translateZ<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 定义 3D 转换</p> <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective" target="_blank" rel="noopener noreferrer">perspective<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 为 3D 转换元素定义透视视图。</p> <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-style" target="_blank" rel="noopener noreferrer">transform-style: preserve-3d;<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 指定子元素定位在三维空间内。另外，该属性是非继承的。</p> <h2 id="要开始讲咯"><a href="#要开始讲咯" aria-hidden="true" class="header-anchor">#</a> 要开始讲咯~</h2> <p>有一个立方体的demo放在我的github中，如图：</p> <p><img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0a5b4bcab2ca1?w=1735&amp;h=928&amp;f=png&amp;s=53754" alt=""></p> <p><a href="https://fontendart.github.io/%E5%89%8D%E7%AB%AF/demo/%E7%AB%8B%E6%96%B9%E4%BD%93%E5%85%A8%E6%99%AF/index.html" target="_blank" rel="noopener noreferrer">demo链接在这里<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/FontEndArt/FontEndArt.github.io/blob/master/%E5%89%8D%E7%AB%AF/demo/%E7%AB%8B%E6%96%B9%E4%BD%93%E5%85%A8%E6%99%AF/index.html" target="_blank" rel="noopener noreferrer">源码链接<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <hr> <h2 id="立方体原理"><a href="#立方体原理" aria-hidden="true" class="header-anchor">#</a> 立方体原理</h2> <p>立方体我们大家都知道，是由六个的正方形组成的正多面体。如下图：
+<img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0a5f986cac9d6?w=198&amp;h=220&amp;f=png&amp;s=58040" alt=""></p> <hr> <h2 id="全景图"><a href="#全景图" aria-hidden="true" class="header-anchor">#</a> 全景图</h2> <p>这里我们用全景图来举例，帮助我们理解perspective和translateZ。</p> <p>全景图的组成方式有两种，分别是 立方体、球体（棱柱），我们这里使用的是立方体来举例。</p> <blockquote><p>这里我还没有搞明白<strong>球体</strong>和<strong>棱柱</strong>的区别, 所以等我理解以后，咱们后面再说</p></blockquote> <hr> <h2 id="制作立方体"><a href="#制作立方体" aria-hidden="true" class="header-anchor">#</a> 制作立方体</h2> <h3 id="一、制作6个面"><a href="#一、制作6个面" aria-hidden="true" class="header-anchor">#</a> 一、制作6个面</h3> <p>因为立方体是由6个正方形组成，所以我们先来制作它的组成部分，最后再进行组装。</p> <p>我们这里用face来当做面，而top、bottom、left、right、after、first来分别代表上、下、左、右、前、后几个面。</p> <blockquote><p>这里我们的视角正对着first</p></blockquote> <p>我们定义了一个窗口stage、透视盒子ctx 和 立方体容器facelist。</p> <p>我们先将窗口定义为800*800相对页面垂直居中</p> <p>我们先将立方体定义为宽高为800px;
+接下来将每个面的宽高也定义为800px, 并给予每个面一个不同的颜色用以区分。</p> <p>代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;立方体全景&lt;/title&gt;
+  &lt;style&gt;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .stage {
+      width: 800px;
+      height: 800px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .face {
+      width: 800px;
+      height: 800px;
+    }
+    
+    .top {
+      background: green;
+    }
+
+    .bottom {
+      background: yellow;
+    }
+
+    .after {
+      background: red;
+    }
+
+    .left {
+      background: black;
+    }
+
+    .right {
+      background: blue;
+    }
+
+    .first {
+      background: blueviolet;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class='stage'&gt;
+    &lt;div class='ctx'&gt;
+      &lt;div class='facelist'&gt;
+        &lt;div class='face top'&gt;1&lt;/div&gt;
+        &lt;div class='face bottom'&gt;2&lt;/div&gt;
+        &lt;div class='face after'&gt;3&lt;/div&gt;
+        &lt;div class='face left'&gt;4&lt;/div&gt;
+        &lt;div class='face right'&gt;5&lt;/div&gt;
+        &lt;div class='face first'&gt;6&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br></div></div><h3 id="二、组合"><a href="#二、组合" aria-hidden="true" class="header-anchor">#</a> 二、组合</h3> <p>到这里我们立方体的6个面制作完成，但是他们是一次排列在页面中，并不是我们想要的；</p> <p>接下来让我们将他们先放在一起。给face添加position: absolute;</p> <p>这样他们是重合在一起的，我们需要这样操作：</p> <h4 id="_1-把它们旋转到对应的角度"><a href="#_1-把它们旋转到对应的角度" aria-hidden="true" class="header-anchor">#</a> 1. 把它们旋转到对应的角度</h4> <pre><code>比如：
+
+.top的面我们将它绕X轴旋转90度；
+
+.left的面我们将它绕Y轴旋转90度；
+
+···
+</code></pre> <p><img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0b05043eb5dc2?w=423&amp;h=424&amp;f=png&amp;s=83759" alt="">
+图片摘自<a href="https://segmentfault.com/a/1190000006880856" target="_blank" rel="noopener noreferrer">思否<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;立方体全景&lt;/title&gt;
+  &lt;style&gt;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .stage {
+      width: 800px;
+      height: 800px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .face {
+      width: 800px;
+      height: 800px;
+      position: absolute;
+    }
+
+    .top {
+      background: green;
+      transform: rotateX(90deg);
+    }
+
+    .bottom {
+      background: yellow;
+      transform: rotateX(90deg);
+    }
+
+    .after {
+      background: red;
+      transform: rotateX(0deg);
+    }
+
+    .left {
+      background: black;
+      transform: rotateY(90deg);
+    }
+
+    .right {
+      background: blue;
+      transform: rotateY(90deg);
+    }
+
+    .first {
+      background: blueviolet;
+      transform: rotateY(0deg);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class='stage'&gt;
+    &lt;div class='ctx'&gt;
+      &lt;div class='facelist'&gt;
+        &lt;div class='face top'&gt;1&lt;/div&gt;
+        &lt;div class='face bottom'&gt;2&lt;/div&gt;
+        &lt;div class='face after'&gt;3&lt;/div&gt;
+        &lt;div class='face left'&gt;4&lt;/div&gt;
+        &lt;div class='face right'&gt;5&lt;/div&gt;
+        &lt;div class='face first'&gt;6&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br></div></div><p>旋转后的图形  应该是这样的
+<img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0af8709b2c5b4?w=504&amp;h=457&amp;f=png&amp;s=5729" alt=""></p> <p>这样看起来好像什么都没有变化，我们来看看这个图：
+<img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0afcc8fc39262?w=1260&amp;h=565&amp;f=png&amp;s=27642" alt=""></p> <p>把每个面都重叠在黑色的原点就是他的实际模样，也就是说现在还不是一个立方体</p> <p>因为他们的中心都是重合的，如何将它们变成立方体呢？看下面的步骤</p> <h4 id="_2-将他们按照对应的边长通过translatez推开"><a href="#_2-将他们按照对应的边长通过translatez推开" aria-hidden="true" class="header-anchor">#</a> 2. 将他们按照对应的边长通过translateZ推开</h4> <pre><code>由于我们这里是立方体，所以直接就是正方形的边长  在这里也就是±400px
+
+给它们设置上对应的translateZ值，让多个面往不同方向平移，直到组成一个完整的立方体。
+</code></pre> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;立方体全景&lt;/title&gt;
+  &lt;style&gt;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .stage {
+      width: 800px;
+      height: 800px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .face {
+      width: 800px;
+      height: 800px;
+      position: absolute;
+    }
+
+    .top {
+      background: green;
+      transform: rotateX(90deg) translateZ(400px);
+    }
+
+    .bottom {
+      background: yellow;
+      transform: rotateX(90deg) translateZ(-400px);
+    }
+
+    .after {
+      background: red;
+      transform: rotateX(0deg) translateZ(-400px);
+    }
+
+    .left {
+      background: black;
+      transform: rotateY(90deg) translateZ(-400px);
+    }
+
+    .right {
+      background: blue;
+      transform: rotateY(90deg) translateZ(400px);
+    }
+
+    .first {
+      background: blueviolet;
+      transform: rotateY(0deg) translateZ(400px);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class='stage'&gt;
+    &lt;div class='ctx'&gt;
+      &lt;div class='facelist'&gt;
+        &lt;div class='face top'&gt;1&lt;/div&gt;
+        &lt;div class='face bottom'&gt;2&lt;/div&gt;
+        &lt;div class='face after'&gt;3&lt;/div&gt;
+        &lt;div class='face left'&gt;4&lt;/div&gt;
+        &lt;div class='face right'&gt;5&lt;/div&gt;
+        &lt;div class='face first'&gt;6&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br></div></div><h4 id="_3-加上3d效果"><a href="#_3-加上3d效果" aria-hidden="true" class="header-anchor">#</a> 3. 加上3D效果</h4> <p>我们给ctx盒子加上3D属性 让3D变得立体化</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>···
+    .ctx {
+      /* 3d视角 */
+      transform-style: preserve-3d;
+    }
+···
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h4 id="_4-将我们的视角推到中心点"><a href="#_4-将我们的视角推到中心点" aria-hidden="true" class="header-anchor">#</a> <strong>4.将我们的视角推到中心点</strong></h4> <p>先调整stage的视距，将我们的眼睛（视角）调整到ctx的first面的位置</p> <p>这个时候我们距离after面有800px的距离 离ctx的面有400px的距离</p> <p>然后我们将ctx这个透视盒子向外推1/2width的距离 也就是400px，将我们的眼睛（视角）置于中心</p> <p>不理解的童鞋 请注意看下面的单独讲解；</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>  .stage {
+      width: 800px;
+      height: 800px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* 从何处（哪里）查看一个元素的角度 */
+      /* 从当前视角到对应面的距离  在这里是 stage到ctx的距离 */
+      perspective: 400px;
+      /* 调整角度 */
+      /* perspective-origin: 50% 100%; */
+    }
+
+    .ctx {
+      /* 3d视角 */
+      transform-style: preserve-3d;
+
+      /* 把视角推到中心 */
+      transform: translateZ(400px) rotateY(0deg);
+    }
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h3 id="三、完事"><a href="#三、完事" aria-hidden="true" class="header-anchor">#</a> 三、完事</h3> <p>这样我们已经将一个3D立方体做出来了  并且把我们的视角放在了这个立方体内部的中心点。</p> <p>我们可以通过 改变 <strong>perspective-origin</strong> 的值来观察整个立方体</p> <p>调整角度，在不同角度看到的立方体，有助于更快的理解perspective。</p> <h2 id="单独讲解perspective和translatez"><a href="#单独讲解perspective和translatez" aria-hidden="true" class="header-anchor">#</a> 单独讲解perspective和translateZ</h2> <p>我呢找到了一个帮助我理解的图片：</p> <p><img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0b0e14020f01c?w=593&amp;h=587&amp;f=png&amp;s=86945" alt=""></p> <p>这里Z指的就是 translateZ ，d指的是 perspective</p> <p>这里我们要知道，Z轴向外为正值。</p> <p>所以总结下就是：</p> <ul><li>perspective是指 <strong>从当前视角到所看平面的距离</strong></li> <li>translateZ指的是 <strong>从所看平面到推进视角之间的距离，大白话就是从当前距离 把你看的拉进或者拉远的距离</strong></li> <li>人的视角在3D投影效果中是 <strong>近大远小</strong></li></ul> <hr> <h2 id="重中之重"><a href="#重中之重" aria-hidden="true" class="header-anchor">#</a> 重中之重</h2> <p>理解 <strong>近大远小</strong> 和 <strong>眼睛与平面的透视关系</strong> 也就是上面那张图！！！</p> <h2 id="结语"><a href="#结语" aria-hidden="true" class="header-anchor">#</a> 结语</h2> <p>这些东西对于初学css 3D的人来说可能理解起来比较吃力；</p> <p>对于大部分人来说，其实只靠读文章是不可能完全理解的；</p> <p>所以还有一句名言警句送给大家：</p> <h2 id="实践是检验真理的唯一标准"><a href="#实践是检验真理的唯一标准" aria-hidden="true" class="header-anchor">#</a> 实践是检验真理的唯一标准</h2> <p>希望大家可以一直以实践为主、阅读为辅，自己真正理解的才是自己的。谢谢！</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/guide/css/hailang.html" class="prev">
+          css掩人耳目式海浪动效🌊，这可能是最简单的实现方式了吧？
+        </a></span> <span class="next"><a href="/guide/css/sanlan.html">
+          深入理解圣杯布局和双飞翼布局
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.8de1be90.js" defer></script><script src="/assets/js/6.1adb1c7b.js" defer></script><script src="/assets/js/1.1218976d.js" defer></script><script src="/assets/js/24.2ae90c10.js" defer></script>
+  </body>
+</html>
