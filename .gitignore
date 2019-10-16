@@ -8,4 +8,4 @@ deploy.sh
 
 源码分析
 
-dist
+docs/.vuepress/dist/*
