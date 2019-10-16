@@ -9,7 +9,7 @@
 
 内存也被称为 内储存器 和 主存储器，其作用是用于暂时存放CPU中的运算数据，以及和硬盘等外部存储器交换的数据。下面是CPU的组成和工作原理：
 
-![图一](https://github.com/MarsPen/-notes-summary/blob/xiaoranzife/source/images/cpu.png?raw=true)
+![图一](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/cpu.png?raw=true)
 
 <!-- <img src="/images/cpu.png"> -->
 
@@ -54,7 +54,7 @@ var obj1 = obj;
 
 如下图所示：
 
-![图二](https://github.com/MarsPen/-notes-summary/blob/xiaoranzife/source/images/pointer.png?raw=true)
+![图二](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/pointer.png?raw=true)
 
 ### 两者区别
 ---
@@ -82,7 +82,7 @@ console.log(obj);
 ```
 这段代码的过程如下：
 
-![图三](https://github.com/MarsPen/-notes-summary/blob/xiaoranzife/source/images/pointer-yinyong.png?raw=true)
+![图三](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/pointer-yinyong.png?raw=true)
 
 ## 指向变量的指针
 
