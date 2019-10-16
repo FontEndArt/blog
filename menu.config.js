@@ -6,6 +6,7 @@ module.exports.TYPES = {
         vue: "Vue",
         css: "CSS",
         html: "HTML",
+        arithmetic: "算法",
         'vue/test': "vue 的测试目录",
     },
     mianshi: {
