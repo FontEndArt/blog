@@ -60,6 +60,50 @@
 ### 基本的逻辑结构
 ---
 
+![基本的逻辑结构](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/luojijiegou.png?raw=true)
+
+- 集合
+- 线性结构
+- 树状结构
+- 图状结构（网状结构）
+
+#### 集合
+
+数据结构中的集合关系就类似于数学中的集合。
+
+![集合](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/jihe.png?raw=true)
+
+- 集合中的数据成员是无序的。
+- 每个数据成员在集合中不能重复，仅且只出现一次。
+
+####  线性表
+
+线性结构中的数据元素之间是一对一的关系。也就是数据元素一个接一个地排列。
+
+- 用来存放特定的某一个类型的元素
+- 物理结构为顺序表和链表
+
+#### 线性表的衍生结构
+
+- 1.栈
+- 2.队列
+- 3.串
+- ...
+
+##### 栈
+
+栈是一种被限制操作的线性表。
+
+![栈](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/jihe.png?raw=true)
+
+- 几个基本概念
+- 操作规则
+- LIFO(Last In First Out)
+- 用途:
+    + 解决括号匹配检查
+    + 浏览器的后退或编辑器的undo功能
+
+### 内存与存储结构
 
 
 
