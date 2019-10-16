@@ -9,9 +9,7 @@
 
 内存也被称为 内储存器 和 主存储器，其作用是用于暂时存放CPU中的运算数据，以及和硬盘等外部存储器交换的数据。下面是CPU的组成和工作原理：
 
-![图一](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/cpu.png?raw=true)
-
-<!-- <img src="/images/cpu.png"> -->
+![图一](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/cpu.png?raw=true)
 
 在计算机的组成结构中，有一个很重要的部分是储存器。
 
@@ -54,7 +52,7 @@ var obj1 = obj;
 
 如下图所示：
 
-![图二](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/pointer.png?raw=true)
+![图二](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/pointer.png?raw=true)
 
 ### 两者区别
 ---
@@ -82,7 +80,7 @@ console.log(obj);
 ```
 这段代码的过程如下：
 
-![图三](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/pointer-yinyong.png?raw=true)
+![图三](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/pointer-yinyong.png?raw=true)
 
 ## 指向变量的指针
 
@@ -210,6 +208,6 @@ int ****p4 = &p3;
 理解指针的操作，更加有助于我们更快的理解数据结构和算法。
 
 ## 致谢
-感谢大家阅读我的文章，如果对我感兴趣可以关注我的博客。
+感谢大家阅读我的文章，如果对我感兴趣可以关注我的博客，或者点击页面右上角帮我点个star。
 
 [前端小然子的博客](https://xiaoranzife.com "前端小然子")

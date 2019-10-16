@@ -42,7 +42,7 @@
 
 它们之间的关系就像下图一样：
 
-![算法的几个基本概念](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/arithmetic-concept.png?raw=true)
+![算法的几个基本概念](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/arithmetic-concept.png?raw=true)
 
 ### 浅析数据结构
 ---
@@ -53,9 +53,9 @@
 - 存储结构：数据结构在计算机中的表示。
 - 算法：对数据的操作
 
-![数据结构分类](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/arithmetic_structure_sort.png?raw=true)
+![数据结构分类](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/arithmetic_structure_sort.png?raw=true)
 
-![数据结构与算法体系图](https://github.com/FontEndArt/blog/tree/master/images/arithmetic/arithmetic_structure_system.png?raw=true)
+![数据结构与算法体系图](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/arithmetic_structure_system.png?raw=true)
 
 ### 基本的逻辑结构
 ---
@@ -70,6 +70,6 @@
 
 
 ## 致谢
-感谢大家阅读我的文章，如果对我感兴趣可以关注我的博客。
+感谢大家阅读我的文章，如果对我感兴趣可以关注我的博客，右上角可以进入GitHub帮我点个star。
 
 [前端小然子的博客](https://xiaoranzife.com "前端小然子")

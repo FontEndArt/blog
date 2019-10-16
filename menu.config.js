@@ -7,7 +7,7 @@ module.exports.TYPES = {
         css: "CSS",
         html: "HTML",
         arithmetic: "算法",
-        'vue/test': "vue 的测试目录",
+        // 'vue/test': "vue 的测试目录",
     },
     mianshi: {
         vue: "Vue",
@@ -20,7 +20,7 @@ module.exports.TYPES = {
 module.exports.ignore = {
     guide: [
         "qianyan",
-        "mianshi"
+        "mianshi",
     ],
     mianshi: [
         "vue",
