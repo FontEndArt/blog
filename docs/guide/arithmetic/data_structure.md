@@ -92,19 +92,15 @@
 
 ##### 栈
 
-栈是一种被限制操作的线性表。
+栈是一种被限制操作的线性表。即栈是一种先进后出 LIFO(Last In First Out) 的数据结构。
 
-![栈](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/jihe.png?raw=true)
+![栈](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/zhan.png?raw=true)
 
-- 几个基本概念
-- 操作规则
-- LIFO(Last In First Out)
 - 用途:
     + 解决括号匹配检查
     + 浏览器的后退或编辑器的undo功能
 
 ### 内存与存储结构
-
 
 
 ## 封装与数据结构的原则
