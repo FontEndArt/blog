@@ -166,9 +166,45 @@
 ![分辨哪一个是树](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/fenbianshu.png?raw=true)
 
 ### 树的遍历
+
+按照某种规则，不重复地访问某种树的所有节点。
+
+- 先序遍历(深度优先)
+![先序遍历](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/xianxu.png?raw=true)
+
+- 中序遍历(深度优先)
+![中序遍历](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/zhongxu.png?raw=true)
+
+- 后序遍历(深度优先)
+![后序遍历](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/houxu.png?raw=true)
+
+- 层序遍历(广度优先)
+![层序遍历](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/cengxu.png?raw=true)
+
 ### 树的衍生
 
+- 无序树:树中任意节点的子结点之间没有顺序关系，这种树称为无序树,也称为自由树
+- 有序树:树中任意节点的子结点之间有顺序关系
+- 二叉树:每个节点最多含有两个子树的树称为二叉树
+- 完全二叉树:除了最后一层，其它各层节点数都达到最大
+- 满二叉树:每一层上的结点数都是最大结点数
+- 霍夫曼树:带权路径最短的二叉树，也叫最优二叉树
+
+> 具体的可以移步Wiki或者百度百科 (^-^)
+
 ##  图
+
+由顶点的集合(不能是空集)和边的集合组成的结构，表现的是多对多的关系
+
+- 数学基础是:图论
+- 几个基本概念:
+    + 顶点
+    + 边
+    + 权
+    + 有向图与无向图
+
+
+
 
 
 ## 封装与数据结构的原则
