@@ -3,7 +3,7 @@
 路漫漫其修远兮，吾将上下而求索。
 
 ### 致谢
-[MarsPen]: https://blog.studyfe.cn/
+[MarsPen]: https://www.studyfe.cn/
 [CoolB]: https://www.4bros.cn/
 [小驴]: https://yd.yangshuaiweb.com/
 [冲哥]: http://www.cckim.cn
