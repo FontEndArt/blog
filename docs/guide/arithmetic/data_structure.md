@@ -196,16 +196,14 @@
 
 由顶点的集合(不能是空集)和边的集合组成的结构，表现的是多对多的关系
 
+![图](https://github.com/FontEndArt/blog/blob/master/images/arithmetic/tu.png?raw=true)
+
 - 数学基础是:图论
 - 几个基本概念:
     + 顶点
     + 边
     + 权
     + 有向图与无向图
-
-
-
-
 
 ## 封装与数据结构的原则
 
