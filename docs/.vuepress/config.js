@@ -1,8 +1,7 @@
-const getLinks = require('../../walk-test');
-
+const router = require('./router');
 const Nav = [
   { text: '进阶', link: '/guide/' },
-  // { text: '求虐', link: '/mianshi/' },
+  // { text: '面试', link: '/mianshi/' },
 ];
 
 module.exports = {
@@ -34,9 +33,9 @@ module.exports = {
             '/guide/',
           ]
         },
-        ...getLinks("guide"),
+        ...router.guide,
       ],
-      '/mianshi/': getLinks('mianshi'),
+      '/mianshi/': [...router.mianshi],
     },
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
     repo: 'https://github.com/FontEndArt/blog',

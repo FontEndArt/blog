@@ -20,12 +20,12 @@ module.exports.TYPES = {
 module.exports.ignore = {
     guide: [
         "qianyan",
-        "mianshi",
+        // "mianshi",
     ],
     mianshi: [
-        "vue",
-        "jichu",
-        "react",
-        "common",
+        // "vue",
+        // "jichu",
+        // "react",
+        // "common",
     ]
 }
