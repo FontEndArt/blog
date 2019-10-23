@@ -39,6 +39,7 @@ module.exports = [
                 'arithmetic/0.structure',
                 'arithmetic/1.TwoSum',
                 'arithmetic/2.AddTwoNumbers',
+                'arithmetic/3.lengthOfLongestSubstring',
             ]
     }
 ]
