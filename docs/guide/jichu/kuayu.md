@@ -14,7 +14,7 @@
     在这个域名下请求同一个接口
     这个项目内请求没问题，然而这个壳子中请求的却是无权限访问
 示例图如下
-![跨域](https://user-gold-cdn.xitu.io/2019/4/10/16a05a4a93fe5a2a?w=1440&h=1080&f=jpeg&s=89902)
+![跨域](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a05a4a93fe5a2a.jpeg)
 
 这里我们可以看到是a.com加载的b.com下的common.js
 
@@ -152,7 +152,7 @@ echo "{$callback}({$data})";
 
 具体实现如图：
 
-![](https://user-gold-cdn.xitu.io/2019/4/10/16a05cb9ab0c05d8?w=2272&h=1056&f=jpeg&s=724100)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a05cb9ab0c05d8.jpeg)
 
 主要方法 **onhashchange**
 
