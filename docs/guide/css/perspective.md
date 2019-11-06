@@ -55,7 +55,7 @@
 接下来将每个面的宽高也定义为800px, 并给予每个面一个不同的颜色用以区分。
 
 代码如下：
-```
+```html
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -156,7 +156,8 @@
     ···
 ![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0b05043eb5dc2.png)
 图片摘自[思否](https://segmentfault.com/a/1190000006880856)
-```
+
+```html
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -263,7 +264,7 @@
     由于我们这里是立方体，所以直接就是正方形的边长  在这里也就是±400px
 
     给它们设置上对应的translateZ值，让多个面往不同方向平移，直到组成一个完整的立方体。
-```
+```html
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -356,7 +357,7 @@
 #### 3. 加上3D效果
 
 我们给ctx盒子加上3D属性 让3D变得立体化
-```
+```css
 ···
     .ctx {
       /* 3d视角 */
@@ -375,7 +376,7 @@
 
 不理解的童鞋 请注意看下面的单独讲解；
 
-```
+```css
   .stage {
       width: 800px;
       height: 800px;

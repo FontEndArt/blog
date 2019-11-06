@@ -37,14 +37,14 @@
 我注意到圣杯布局的left、middle、right都有position: relative;
 
 设:
-```
+```css
 .left width:200px
 .right width:220px
 ``` 
 
 那么下面的这些属性为什么要存在？
-```
-.container上面的paddind
+```css
+.container 上面的paddind
 .left 的left: -200px;
 .right 的right: -220px;
 ```
@@ -57,7 +57,7 @@
 
 圣杯布局示例代码如下：
 
-```
+```html
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -176,7 +176,7 @@
 6. left设置 margin-left: -100%, right设置 right: -rightWidth;
 7. container设置padding: 0, rightWidth, 0, leftWidth;
 
-```
+```html
 <!DOCTYPE html>
 <html lang="zh">
 

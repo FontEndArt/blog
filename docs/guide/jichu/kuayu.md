@@ -69,7 +69,7 @@
 jsonp跨域的本质是通过动态的创建script，再请求一个带参数的网址实现跨域通信。
 
 1. 原生实现方法示例如下：
-```
+```html
 <script>
 var src = "https://xxx.com/xxx.php?a=jsonpTest&callback=onback";
 
@@ -86,12 +86,12 @@ function onBack(res) {
 <script>
 ```
 服务端返回：
-```
+```javascript
 onBack({state: true})
 ```
 
 2. 通过jquery ajax实现：
-```
+```javascript
 $.ajax({
     url: 'https://xxx.com/xxx.php',
     type: 'get',
@@ -106,7 +106,7 @@ $.ajax({
 其他框架的方法原理一致 可根据不同的request模块自行调整
 
 后端php代码示例：
-```
+```php
 <?php
 $callback = $_GET['callback'];
 if (empty($callback)) {
@@ -132,7 +132,7 @@ echo "{$callback}({$data})";
 实现原理：两个页面都通过js强制设置document.domain为基础主域，也就实现了同域。
 
 1.) 父页面(http://n.xxx.com/a.html)
-```
+```html
 <iframe id="iframe" src="http://m.xxx.com/b.html"></iframe>
 <script>
     document.domain = 'xxx.com';
@@ -140,7 +140,7 @@ echo "{$callback}({$data})";
 </script>
 ```
 2.) 子页面(http://m.xxx.com/b.html)
-```
+```html
 <script>
     document.domain = 'xxx.com';
     // 获取父窗口中变量
@@ -158,7 +158,7 @@ echo "{$callback}({$data})";
 
 代码实现：
 1) a.html
-```
+```html
 <iframe id="iframe" src="http://www.b.com/b.html" style="display:none;"></iframe>
 <script>
     var iframe = document.getElementById('iframe');
@@ -175,7 +175,7 @@ echo "{$callback}({$data})";
 </script>
 ```
 2) b.html
-```
+```html
 <iframe id="iframe" src="http://www.a.com/c.html" style="display:none;"></iframe>
 <script>
     var iframe = document.getElementById('iframe');
@@ -187,7 +187,7 @@ echo "{$callback}({$data})";
 </script>
 ```
 3) c.html
-```
+```html
 <script>
     // 监听b.html传来的hash值
     window.onhashchange = function () {
@@ -203,7 +203,7 @@ window.name属性的特性：
 * 可以支持非常长的 name 值（2MB）
  
 1）a.html
-```
+```html
 <script>
 var proxy = function(url, callback) {
     var state = 0;
@@ -243,7 +243,7 @@ proxy('http://yyy.com/b.html', function(data){
 </script>
 ```
 2）b.html
-```
+```html
 <script>
     window.name = '在这里填写跨域数据';
 </script>
@@ -274,7 +274,7 @@ origin:
 示例如下：
 
 a.html
-```
+```html
 <iframe id="iframe" src="http://yyy.com/b.html" style="display:none;"></iframe>
 <script>       
     var iframe = document.getElementById('iframe');
@@ -293,7 +293,7 @@ a.html
 </script>
 ```
 b.html
-```
+```html
 <script>
     // 接收xxx.com的数据
     window.addEventListener('message', function(e) {
@@ -318,14 +318,14 @@ b.html
 所有浏览器都支持该功能(IE8+：IE8/9需要使用XDomainRequest对象来支持CORS）)，CORS也已经成为常用的跨域解决方案。
 
 1.通过前端设置
-```
+```javascript
 // 携带cookie
 xhr.withCredentials = true;
 ```
 2.服务端配置
 
 设置header头
-```
+```javascript
 
 // 允许跨域访问的域名,若有端口需写全（协议+域名+端口）
 // 若没有端口末尾不用加'/'
@@ -343,7 +343,7 @@ Access-Control-Allow-Headers Content-Type,X-Requested-With
 1）CORS的一种
 
 示例：
-```
+```nginx
 location / {
   add_header Access-Control-Allow-Origin *;
 }

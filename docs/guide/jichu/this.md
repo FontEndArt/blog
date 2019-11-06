@@ -7,7 +7,7 @@ js的关键字，在执行上下文环境时被绑定
 默认绑定、隐式绑定、apply,call、new绑定。优先级从低到高
 
 ## 默认绑定
-```
+```javascript
 console.log(this); //window
 function fun() {
 console.log(this.a) // 非严格模式下1 ，严格模式下undefined
@@ -19,7 +19,7 @@ fun();
 ## 隐式调用
 作为对象方法调用，this 指代上下文对象
 
-```
+```javascript
 function fun() { 
   console.log( this.a );
 }
@@ -36,7 +36,7 @@ console.log(c()); // 1
 ## apply,call
 改变对象的prototype关联对象来改变this,对于null，undefined绑定会失效
 
-```
+```javascript
 function fun() { 
   console.log( this.a );
 }
@@ -62,7 +62,7 @@ this 指代new 出的对象
 - 这个新对象会绑定到函数调用的this。
 - 如果函数没有返回其他对象,那么new表达式中的函数调用会自动返回这个新对象。
 
-```
+```javascript
 function fun(a) { 
   this.a = a;
 }
