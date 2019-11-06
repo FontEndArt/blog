@@ -19,7 +19,7 @@
 ## 要开始讲咯~
 有一个立方体的demo放在我的github中，如图：
 
-![](https://user-gold-cdn.xitu.io/2019/4/11/16a0a5b4bcab2ca1?w=1735&h=928&f=png&s=53754)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0a5b4bcab2ca1.png)
 
 [demo链接在这里](https://fontendart.github.io/%E5%89%8D%E7%AB%AF/demo/%E7%AB%8B%E6%96%B9%E4%BD%93%E5%85%A8%E6%99%AF/index.html)
 
@@ -28,7 +28,7 @@
 ---
 ## 立方体原理
 立方体我们大家都知道，是由六个的正方形组成的正多面体。如下图：
-![](https://user-gold-cdn.xitu.io/2019/4/11/16a0a5f986cac9d6?w=198&h=220&f=png&s=58040)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0a5f986cac9d6.png)
 
 ---
 ## 全景图
@@ -154,7 +154,7 @@
     .left的面我们将它绕Y轴旋转90度；
     
     ···
-![](https://user-gold-cdn.xitu.io/2019/4/11/16a0b05043eb5dc2?w=423&h=424&f=png&s=83759)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0b05043eb5dc2.png)
 图片摘自[思否](https://segmentfault.com/a/1190000006880856)
 ```
 <!DOCTYPE html>
@@ -248,10 +248,10 @@
 ```
 
 旋转后的图形  应该是这样的
-![](https://user-gold-cdn.xitu.io/2019/4/11/16a0af8709b2c5b4?w=504&h=457&f=png&s=5729)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0af8709b2c5b4.png)
 
 这样看起来好像什么都没有变化，我们来看看这个图：
-![](https://user-gold-cdn.xitu.io/2019/4/11/16a0afcc8fc39262?w=1260&h=565&f=png&s=27642)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0afcc8fc39262.png)
 
 把每个面都重叠在黑色的原点就是他的实际模样，也就是说现在还不是一个立方体 
 
@@ -411,7 +411,7 @@
 
 我呢找到了一个帮助我理解的图片：
 
-![](https://user-gold-cdn.xitu.io/2019/4/11/16a0b0e14020f01c?w=593&h=587&f=png&s=86945)
+![](https://raw.githubusercontent.com/FontEndArt/blog/master/images/juejin/16a0b0e14020f01c.png)
 
 这里Z指的就是 translateZ ，d指的是 perspective
 
