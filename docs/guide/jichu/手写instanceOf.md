@@ -74,3 +74,15 @@ const primitiveNumber = primitive('number')
 console.log('123' instanceof primitiveString)
 console.log(123 instanceof primitiveNumber)
 ```
+
+--- 
+
+作者：前端小然子
+
+链接：[https://xiaoranzife.com/guide/jichu/%E6%89%8B%E5%86%99instanceOf.html](https://xiaoranzife.com/guide/jichu/%E6%89%8B%E5%86%99instanceOf.html)
+
+来源：前端进阶与被虐笔记
+
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+---

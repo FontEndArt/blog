@@ -366,3 +366,15 @@ WebSocket 是H5的一种新协议，实现了浏览器和服务器的全双工�
 直接建立ws/wss链接就行了
 
 
+--- 
+
+作者：前端小然子
+
+链接：[https://xiaoranzife.com/guide/jichu/kuayu.html](https://xiaoranzife.com/guide/jichu/kuayu.html)
+
+来源：前端进阶与被虐笔记
+
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+---
+

@@ -164,7 +164,7 @@ while：
 
 作者：前端小然子
 
-链接：[https://blog.乔田.我爱你/guide/vue/vue-dom-diff.html](https://blog.乔田.我爱你/guide/vue/vue-dom-diff.html)
+链接：[https://xiaoranzife.com/guide/vue/vue-dom-diff.html](https://xiaoranzife.com/guide/vue/vue-dom-diff.html)
 
 来源：前端进阶与被虐笔记
 
