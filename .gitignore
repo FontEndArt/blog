@@ -1,0 +1,11 @@
+node_modules
+deploy.sh
+
+*.zip
+*.rar
+*.tar
+*.log
+
+源码分析
+
+docs/.vuepress/dist/*
