@@ -159,15 +159,3 @@ while：
 
 				创建新的节点插入进去
 ```
-
---- 
-
-作者：前端小然子
-
-链接：[https://xiaoranzife.com/guide/vue/vue-dom-diff.html](https://xiaoranzife.com/guide/vue/vue-dom-diff.html)
-
-来源：前端进阶与被虐笔记
-
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
----

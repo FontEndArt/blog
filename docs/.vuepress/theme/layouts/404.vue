@@ -1,26 +1,29 @@
 <template>
   <div class="theme-container">
-    <div class="theme-default-content">
-      <h1>404</h1>
-      <blockquote>{{ getMsg() }}</blockquote>
-      <router-link to="/">Take me home.</router-link>
-    </div>
+    <script homePageUrl="https://xiaoranzife.com" homePageName="回到前端小然子的博客" async="true" charset="utf-8" src="//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js"></script>
   </div>
 </template>
 
 <script>
-const msgs = [
-  `There's nothing here.`,
-  `How did we get here?`,
-  `That's a Four-Oh-Four.`,
-  `Looks like we've got some broken links.`
-]
-
 export default {
-  methods: {
-    getMsg () {
-      return msgs[Math.floor(Math.random() * msgs.length)]
-    }
+  beforeCreate() {
+      // var head = document.getElementsByTagName('head')[0];
+      // var script = document.createElement('script');
+      // script.type = 'text/javascript';
+      // script.async = true;
+      // script.charset = "utf-8";
+      // script.setAttribute("homePageUrl", location.origin);
+      // script.setAttribute("homePageName", "回到前端小然子的博客");
+      // script.src = "//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js";
+      // if (typeof (callback) == 'function') {
+      // script.onload = script.onreadystatechange = function () {
+      //     if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+      //     // callback();
+      //     script.onload = script.onreadystatechange = null;
+      //     }
+      // };
+      // }
+      // head.appendChild(script);
   }
 }
 </script>

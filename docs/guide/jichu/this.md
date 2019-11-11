@@ -1,3 +1,9 @@
+---
+source: true
+sourceLink: https://www.studyfe.cn/2019/03/05/javascript/this/
+sourceAuthor: 任博
+---
+
 # 浅谈this指向
 
 ## 概念
@@ -75,12 +81,3 @@ console.log(obj1.a); // 4
 
 ## es6中箭头函数this指向
 取决于外层（函数或全局）作用域。
-
-
-来源: 
-
-作者: 任博
-
-链接: [https://blog.studyfe.cn/2019/03/05/javascript/this/](https://blog.studyfe.cn/2019/03/05/javascript/this/)
-
-本文章著作权归作者所有，任何形式的转载都请注明出处。
