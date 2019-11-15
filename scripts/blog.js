@@ -13,6 +13,7 @@ const checkStatus = execa.sync('git', [
 ]).stdout;
 
 console.log(checkStatus);
+console.log(checkStatus.includes("nothing to commit"));
 return;
 
 const add = execa.sync('git', ['add', '.']).stdout;
