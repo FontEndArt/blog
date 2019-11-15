@@ -10,8 +10,10 @@ const commit = typeof argv.m === 'boolean' ? execa.sync('git', ['rev-parse', 'HE
 
 const add = execa.sync('git', ['add', '.']).stdout;
 if (add) {
-    console.log(chalk.red.bold(`command "git add ." is Error \r\n Error: ${add}`));
+    console.log(chalk.red.bold(`command 'git add .' is Error \r\n Error: ${add}`));
     return;
+} else {
+    console.log(chalk.white.bold(`command 'git add .': done`));
 }
 
 const CommitStatus = execa.sync('git', [
@@ -23,8 +25,14 @@ const CommitStatus = execa.sync('git', [
 ]).stdout;
 
 if (CommitStatus) {
-    console.log(chalk.white.bold(`command 'git commit -m "COMMIT: ${commit}"': \r\n ${CommitStatus}`));
-    return;
+    console.log(chalk.green.bold(`command 'git commit -m "COMMIT: ${commit}"': \r\n ${CommitStatus}`));
+} else {
+    console.log(chalk.white.bold(`command 'git commit -m "COMMIT: ${commit}"': done`));
+}
+
+// 存在 -p参数再提交
+if (argv.p) {
+
 }
 
 console.log(commit);
