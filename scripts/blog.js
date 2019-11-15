@@ -52,7 +52,8 @@ function pushhandle() {
     const pushStatus = execa.sync('git', [
         `push blog ${branch}`,
     ]).stdout;
-
+    console.log(pushStatus);
+    return;
     const pushCommand = `command 'git push blog ${branch}'`;
 
     if (pushStatus) {
