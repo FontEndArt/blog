@@ -50,7 +50,7 @@ async function pushhandle() {
     const branch = typeof argv.p !== 'boolean' ? argv.p : "master";
 
     try {
-        const pushStatus = execa.sync(`git push blog ${branch}`).stdout;
+        const pushStatus = execa(`git push blog ${branch}`).stdout;
         console.log(pushStatus);
     } catch (error) {
         console.log(error);
