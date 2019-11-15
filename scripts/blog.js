@@ -51,7 +51,7 @@ async function pushhandle() {
 
     try {
         const { stdout } = await execa('git', [
-            `push blog ${branch}`,
+            `push blog master:${branch}`,
         ]);
         console.log(stdout);
     } catch (error) {
