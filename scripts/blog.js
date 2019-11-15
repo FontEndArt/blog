@@ -51,7 +51,7 @@ async function pushhandle() {
 
     const pushStatus = await execa('git', [
         `push blog ${branch}`,
-    ]).stdout;
+    ]).stdout.slice(0, 7);
     console.log(pushStatus);
     return;
     const pushCommand = `command 'git push blog ${branch}'`;
