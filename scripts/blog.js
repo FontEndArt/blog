@@ -22,7 +22,7 @@ const addStatus = execa.sync('git', [
     ]
 ]).stdout;
 if (addStatus) {
-    console.log(chalk.red.bold(`command "git add ." is Error \r\n Error: ${addStatus}`));
+    console.log(chalk.white.bold(`command "git add ." is Error \r\n Error: ${addStatus}`));
     return;
 }
 
