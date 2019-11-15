@@ -49,9 +49,7 @@ if (!argv.p) {
 function pushhandle() {
     const pushOptions = [];
     pushOptions.push("blog");
-    if (typeof argv.p !== 'boolean') {
-        pushOptions.push(argv.p);
-    }
+    pushOptions.push(typeof argv.p !== 'boolean' ? argv.p : "master");
 
     const pushStatus = execa.sync('git', [
         'push',
