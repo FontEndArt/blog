@@ -4,10 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "docs:dev": "scripty",
-    "docs:build": "scripty",
-    "push:web": "scripty",
-    "push:blog": "scripty",
     "dev": "node ./scripts/dev.js",
     "build": "node ./scripts/build.js",
     "blog": " node ./scripts/blog.js",
