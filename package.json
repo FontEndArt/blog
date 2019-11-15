@@ -7,9 +7,15 @@
     "docs:dev": "scripty",
     "docs:build": "scripty",
     "push:web": "scripty",
-    "push:blog": "scripty"
+    "push:blog": "scripty",
+    "dev": "node ./scripts/dev.js",
+    "build": "node ./scripts/build.js",
+    "blog": " node ./scripts/blog.js",
+    "web": "yarn build && node ./scripts/web.js"
   },
   "devDependencies": {
+    "execa": "^3.3.0",
+    "inquirer": "^7.0.0",
     "scripty": "^1.9.1",
     "vuepress": "^1.2.0"
   }
