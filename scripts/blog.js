@@ -12,9 +12,10 @@ const checkStatus = execa.sync('git', [
     'status',
 ]).stdout;
 
-console.log(checkStatus);
-console.log(checkStatus.includes("nothing to commit"));
-return;
+if (checkStatus.includes("nothing to commit")) {
+    console.log(chalk.green.bold(checkStatus));
+    return;
+}
 
 const add = execa.sync('git', ['add', '.']).stdout;
 if (add) {
