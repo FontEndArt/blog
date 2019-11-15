@@ -17,8 +17,6 @@ if (checkStatus.includes("nothing to commit")) {
     return;
 }
 
-// 修改了这一行
-
 const add = execa.sync('git', ['add', '.']).stdout;
 if (add) {
     console.log(chalk.red.bold(`command 'git add .' is Error \r\n Error: ${add}`));
