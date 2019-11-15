@@ -49,7 +49,7 @@ if (!argv.p) {
 function pushhandle() {
     const branch = typeof argv.p !== 'boolean' ? argv.p : "master";
 
-    const pushStatus = execa.sync('git', [
+    const pushStatus = execa('git', [
         `push blog ${branch}`,
     ]).stdout;
     console.log(pushStatus);
