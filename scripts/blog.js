@@ -46,22 +46,20 @@ if (!argv.p) {
     return;
 }
 
-async function pushhandle() {
-    const branch = typeof argv.p !== 'boolean' ? argv.p : "master";
-
+function pushhandle() {
     try {
+        const branch = typeof argv.p !== 'boolean' ? argv.p : "master";
         const pushCommandExec = execa.sync(`git`, [`push`, `blog`, `${branch}`]);
         const pushStatus = pushCommandExec.stdout ? pushCommandExec.stdout : pushCommandExec.stderr;
+        const pushCommand = `command 'git push blog ${branch}'`;
+
+        if (pushStatus) {
+            console.log(chalk.white.bold(`${pushCommand}: \r\n`) + chalk.green.bold(pushStatus));
+        } else {
+            console.log(chalk.white.bold(`${pushCommand}: done`));
+        }
     } catch (error) {
         console.log(error);
-        return;
-    }
-    const pushCommand = `command 'git push blog ${branch}'`;
-
-    if (pushStatus) {
-        console.log(chalk.white.bold(`${pushCommand}: \r\n`) + chalk.green.bold(pushStatus));
-    } else {
-        console.log(chalk.white.bold(`${pushCommand}: done`));
     }
 }
 pushhandle();
