@@ -22,7 +22,8 @@ const CommitStatus = execa.sync('git', [
         `-m "COMMIT: ${commit}"`,
     ]
 ]).stdout;
-
+console.log(CommitStatus);
+return;
 if (CommitStatus) {
     console.log(chalk.white.bold(`command 'git commit -m "COMMIT: ${commit}"': \r\n`) + chalk.green.bold(CommitStatus));
 } else {
