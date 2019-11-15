@@ -53,7 +53,7 @@ function pushhandle() {
         `push blog ${branch}`,
     ]).stdout;
 
-    const pushCommand = `command 'git push ${pushOptions[0]} ${pushOptions[1] ? pushOptions[1] : ""}`;
+    const pushCommand = `command 'git push blog ${branch}'`;
 
     if (pushStatus) {
         console.log(chalk.white.bold(`${pushCommand}: \r\n`) + chalk.green.bold(CommitStatus));
