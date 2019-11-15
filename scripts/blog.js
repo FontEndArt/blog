@@ -62,8 +62,4 @@ function pushhandle() {
     }
 }
 pushhandle();
-// console.log(commit);
-    // {
-    //     stdio: 'inherit'
-    // });
 
