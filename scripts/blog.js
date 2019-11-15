@@ -16,6 +16,7 @@ if (add) {
     console.log(chalk.white.bold(`command 'git add .': done`));
 }
 
+
 const CommitStatus = execa.sync('git', [
     'commit',
     [
