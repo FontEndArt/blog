@@ -8,6 +8,13 @@ if (!argv.m) {
 }
 const commit = typeof argv.m === 'boolean' ? execa.sync('git', ['rev-parse', 'HEAD']).stdout.slice(0, 7) : argv.m;
 
+const checkStatus = execa.sync('git', [
+    'status',
+]).stdout;
+
+console.log(checkStatus);
+return;
+
 const add = execa.sync('git', ['add', '.']).stdout;
 if (add) {
     console.log(chalk.red.bold(`command 'git add .' is Error \r\n Error: ${add}`));
@@ -22,8 +29,7 @@ const CommitStatus = execa.sync('git', [
         `-m "COMMIT: ${commit}"`,
     ]
 ]).stdout;
-console.log(CommitStatus);
-return;
+
 if (CommitStatus) {
     console.log(chalk.white.bold(`command 'git commit -m "COMMIT: ${commit}"': \r\n`) + chalk.green.bold(CommitStatus));
 } else {
