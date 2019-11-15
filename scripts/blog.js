@@ -31,11 +31,30 @@ if (CommitStatus) {
 }
 
 // 存在 -p参数再提交
-if (argv.p) {
-
+if (!argv.p) {
+    console.log(chalk.white.bold(`Do you want to exec command 'git push'? If you want to push to github, please use '-p' options!`));
+    return;
 }
 
-console.log(commit);
+const pushOptions = [];
+pushOptions.push("blog");
+if (typeof argv.p !== 'boolean') {
+    pushOptions.push(argv.p);
+}
+
+const pushStatus = execa.sync('git', [
+    'push',
+    pushOptions
+]).stdout;
+
+const pushCommand = `command 'git push ${pushOptions[0]} ${pushOptions[1] ? pushOptions[1] : ""}`;
+
+if (pushStatus) {
+    console.log(chalk.white.bold(`${pushCommand}: \r\n`) + chalk.green.bold(CommitStatus));
+} else {
+    console.log(chalk.white.bold(`${pushCommand}: done`));
+}
+// console.log(commit);
     // {
     //     stdio: 'inherit'
     // });
