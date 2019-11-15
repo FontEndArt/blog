@@ -20,7 +20,7 @@ const CommitStatus = execa.sync('git', [
     'commit',
     [
         '-m',
-        [`"COMMIT: ${commit}"`]
+        `"COMMIT: ${commit}"`
     ]
 ]).stdout;
 
