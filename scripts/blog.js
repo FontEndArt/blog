@@ -13,7 +13,7 @@ const checkStatus = execa.sync('git', [
 ]).stdout;
 
 if (checkStatus.includes("nothing to commit")) {
-    console.log(chalk.green.bold(checkStatus));
+    argv.p ? pushhandle() : console.log(chalk.green.bold(checkStatus));
     return;
 }
 
@@ -46,24 +46,27 @@ if (!argv.p) {
     return;
 }
 
-const pushOptions = [];
-pushOptions.push("blog");
-if (typeof argv.p !== 'boolean') {
-    pushOptions.push(argv.p);
+function pushhandle() {
+    const pushOptions = [];
+    pushOptions.push("blog");
+    if (typeof argv.p !== 'boolean') {
+        pushOptions.push(argv.p);
+    }
+
+    const pushStatus = execa.sync('git', [
+        'push',
+        pushOptions
+    ]).stdout;
+
+    const pushCommand = `command 'git push ${pushOptions[0]} ${pushOptions[1] ? pushOptions[1] : ""}`;
+
+    if (pushStatus) {
+        console.log(chalk.white.bold(`${pushCommand}: \r\n`) + chalk.green.bold(CommitStatus));
+    } else {
+        console.log(chalk.white.bold(`${pushCommand}: done`));
+    }
 }
-
-const pushStatus = execa.sync('git', [
-    'push',
-    pushOptions
-]).stdout;
-
-const pushCommand = `command 'git push ${pushOptions[0]} ${pushOptions[1] ? pushOptions[1] : ""}`;
-
-if (pushStatus) {
-    console.log(chalk.white.bold(`${pushCommand}: \r\n`) + chalk.green.bold(CommitStatus));
-} else {
-    console.log(chalk.white.bold(`${pushCommand}: done`));
-}
+pushhandle();
 // console.log(commit);
     // {
     //     stdio: 'inherit'
