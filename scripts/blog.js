@@ -32,7 +32,7 @@ if (CommitStatus) {
 
 // 存在 -p参数再提交
 if (!argv.p) {
-    console.log(chalk.white.bold(`Do you want to exec command 'git push'? If you want to push to github, please use '-p' options!`));
+    console.log(chalk.yellow.bold(`Do you want to exec command 'git push'? If you want to push to github, please use '-p' options!`));
     return;
 }
 
