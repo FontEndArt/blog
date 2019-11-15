@@ -14,15 +14,16 @@ if (add) {
     return;
 }
 
-const addStatus = execa.sync('git', [
+const CommitStatus = execa.sync('git', [
     'commit',
     [
         '-m',
         [`"COMMIT: ${commit}"`]
     ]
 ]).stdout;
-if (addStatus) {
-    console.log(chalk.white.bold(`command "git add .": \r\n ${addStatus}`));
+
+if (CommitStatus) {
+    console.log(chalk.white.bold(`command 'git commit -m "COMMIT: ${commit}"': \r\n ${CommitStatus}`));
     return;
 }
 
