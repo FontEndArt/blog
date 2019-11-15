@@ -4,6 +4,7 @@ module.exports = [
         collapsable: false,
         children: [
             'vue/vue-dom-diff',
+            // 'vue/watch',
         ]
     },
     {
@@ -11,6 +12,7 @@ module.exports = [
         collapsable: false,
         children: [
             'jichu/手写instanceOf',
+            'jichu/手写Promise',
             'jichu/kuayu',
             'jichu/this',
         ]

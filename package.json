@@ -17,6 +17,7 @@
     "execa": "^3.3.0",
     "inquirer": "^7.0.0",
     "scripty": "^1.9.1",
-    "vuepress": "^1.2.0"
+    "vuepress": "^1.2.0",
+    "yargs-parser": "^16.1.0"
   }
 }

@@ -9,12 +9,13 @@ module.exports = {
         '/': {
             lang: 'zh-CN',
             title: '前端小然子的博客',
-            description: '客官里面请～'
+            description: '前端小然子的博客，记录小然子的学习历程。'
         }
     },
     theme: "theme",
     head: [
         ['link', { rel: 'icon', href: '/logo.png' }],
+        ['meta', { name: 'keywords', content: '前端小然子, 前端小然子的博客' }],
         ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
     ],
     port: 8080,
@@ -22,7 +23,7 @@ module.exports = {
         lineNumbers: true,
     },
     themeConfig: {
-        lastUpdated: true,
+        lastUpdated: '上次更新',
         nav: Nav,
         sidebar: {
             '/guide/': [
@@ -43,12 +44,7 @@ module.exports = {
         author: '前端小然子',
         scss: { indentedSyntax: true },
         serviceWorker: {
-            updatePopup: true // Boolean | Object, 默认值是 undefined.
-            // 如果设置为 true, 默认的文本配置将是: 
-            // updatePopup: { 
-            //    message: "New content is available.", 
-            //    buttonText: "Refresh" 
-            // }
+            updatePopup: true
         }
     },
     plugins: []
