@@ -47,13 +47,11 @@ if (!argv.p) {
 }
 
 function pushhandle() {
-    const pushOptions = [];
-    pushOptions.push("blog");
-    pushOptions.push(typeof argv.p !== 'boolean' ? argv.p : "master");
+    const branch = typeof argv.p !== 'boolean' ? argv.p : "master";
 
     const pushStatus = execa.sync('git', [
         'push',
-        pushOptions
+        [`blog ${branch}`]
     ]).stdout;
 
     const pushCommand = `command 'git push ${pushOptions[0]} ${pushOptions[1] ? pushOptions[1] : ""}`;
