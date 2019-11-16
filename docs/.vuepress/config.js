@@ -38,6 +38,8 @@ module.exports = {
             ],
             '/mianshi/': [...router.mianshi],
         },
+        // CNZZ统计
+        cnzzUrl: "https://s4.cnzz.com/z_stat.php?id=1278211911&web_id=1278211911",
         // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
         repo: 'https://github.com/FontEndArt/blog',
         repoLabel: 'GitHub',
