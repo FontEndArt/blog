@@ -11,8 +11,8 @@ module.exports = [
         title: '前端基础',
         collapsable: false,
         children: [
+            'jichu/手写new',
             'jichu/手写instanceOf',
-            'jichu/手写Promise',
             'jichu/kuayu',
             'jichu/this',
         ]
