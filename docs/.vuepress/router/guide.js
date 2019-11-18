@@ -11,6 +11,7 @@ module.exports = [
         title: '前端基础',
         collapsable: false,
         children: [
+            'jichu/type',
             'jichu/手写new',
             'jichu/手写instanceOf',
             'jichu/kuayu',
