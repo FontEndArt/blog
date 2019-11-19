@@ -15,6 +15,7 @@ module.exports = [
             'jichu/隐式类型',
             'jichu/prototype',
             'jichu/this',
+            'jichu/继承',
             'jichu/手写new',
             'jichu/手写instanceOf',
             'jichu/kuayu',
