@@ -5,6 +5,7 @@ module.exports = [
         children: [
             'vue/start',
             'vue/build.js',
+            'vue/core_index',
             'vue/vue-dom-diff',
             // 'vue/watch',
         ]
