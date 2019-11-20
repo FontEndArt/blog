@@ -4,6 +4,7 @@ module.exports = [
         collapsable: false,
         children: [
             'vue/start',
+            'vue/build.js',
             'vue/vue-dom-diff',
             // 'vue/watch',
         ]
