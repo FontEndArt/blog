@@ -3,6 +3,7 @@ module.exports = [
         title: 'Vue',
         collapsable: false,
         children: [
+            'vue/start',
             'vue/vue-dom-diff',
             // 'vue/watch',
         ]
