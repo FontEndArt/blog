@@ -6,6 +6,7 @@ module.exports = [
             'vue/start',
             'vue/build.js',
             'vue/core_index',
+            'vue/vm.$mount',
             'vue/vue-dom-diff',
             // 'vue/watch',
         ]
