@@ -8,6 +8,7 @@ module.exports = [
             'vue/core_index',
             'vue/vm.$mount',
             'vue/compiler-mount',
+            'vue/vm._render',
             'vue/vue-dom-diff',
             // 'vue/watch',
         ]
