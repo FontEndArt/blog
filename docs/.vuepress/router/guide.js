@@ -10,6 +10,7 @@ module.exports = [
             'vue/compiler-mount',
             'vue/vm._render',
             'vue/createElement',
+            'vue/vm._update',
             'vue/vue-dom-diff',
             // 'vue/watch',
         ]
