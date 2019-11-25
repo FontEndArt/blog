@@ -11,8 +11,16 @@ module.exports = [
             'vue/vm._render',
             'vue/createElement',
             'vue/vm._update',
+            // 'vue/use.keep-alive',
             'vue/vue-dom-diff',
             // 'vue/watch',
+        ]
+    },
+    {
+        title: 'TypeScript',
+        collapsable: false,
+        children: [
+            'typescript/about.md',
         ]
     },
     {
