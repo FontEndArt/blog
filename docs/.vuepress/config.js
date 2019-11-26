@@ -21,6 +21,8 @@ module.exports = {
     port: 8080,
     markdown: {
         lineNumbers: true,
+        externalLinks: { target: '_blank', rel: 'noopener noreferrer' },
+        toc: { includeLevel: [2, 3] }
     },
     themeConfig: {
         lastUpdated: '上次更新',

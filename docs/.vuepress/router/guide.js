@@ -21,6 +21,7 @@ module.exports = [
         collapsable: false,
         children: [
             'typescript/about.md',
+            'typescript/start.md',
         ]
     },
     {
