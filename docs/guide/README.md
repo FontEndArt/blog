@@ -23,3 +23,11 @@ sourceHidden: true
 - [小驴]
 - [R先生]
 
+### 求职中
+
+如果您有招聘需求，且认为我可以胜任的话，可以随时联系我。
+
+- 地点：北京
+
+- 邮箱：[xiaoranzife@163.com](mailto:xiaoranzife@163.com)
+

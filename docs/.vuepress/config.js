@@ -1,7 +1,13 @@
 const router = require('./router');
 const Nav = [
     { text: '进阶', link: '/guide/' },
-    // { text: '面试', link: '/mianshi/' },
+    {
+        text: '面试合集',
+        items: [
+            { text: 'Vue', link: '/mianshi/vue/' },
+            { text: 'React', link: '/mianshi/react/' }
+        ]
+    }
 ];
 
 module.exports = {
@@ -38,7 +44,9 @@ module.exports = {
                 },
                 ...router.guide,
             ],
-            '/mianshi/': [...router.mianshi],
+            '/mianshi/vue': [
+                ...router.vue
+            ]
         },
         // CNZZ统计
         cnzzUrl: "https://s4.cnzz.com/z_stat.php?id=1278211911&web_id=1278211911",

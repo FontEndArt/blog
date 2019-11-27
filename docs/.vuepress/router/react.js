@@ -1,9 +1,8 @@
 module.exports = [
     {
-        title: 'vue',
+        title: 'react',
         collapsable: false,
         children: [
-            'vue/jingdian20191127.md'
         ]
     }
 ]

@@ -1,7 +1,7 @@
 const guide = require("./guide");
-const mianshi = require("./mianshi");
+const vue = require("./vue");
 
 module.exports = {
     guide,
-    mianshi
+    vue
 }
