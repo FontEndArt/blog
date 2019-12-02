@@ -416,3 +416,177 @@ export default {
 }
 </script>
 ```
+
+## Vue 组件间通信有哪几种方式？
+Vue 组件间通信是面试常考的知识点之一，这题有点类似于开放题，你回答出越多方法当然越加分，表明你对 Vue 掌握的越熟练。Vue 组件间通信只要指以下 3 类通信：父子组件通信、隔代组件通信、兄弟组件通信，下面我们分别介绍每种通信方式且会说明此种方法可适用于哪类组件间通信。
+
+### （1）props / $emit 适用 父子组件通信
+
+这种方法是 Vue 组件的基础，相信大部分同学耳闻能详，所以此处就不举例展开介绍。
+::: tip 注意
+> HTML 中的特性名是大小写不敏感的，所以浏览器会把所有大写字符解释为小写字符。
+
+- 当你使用 DOM 中的模板时，camelCase (驼峰命名法) 的 prop 名需要使用其等价的 kebab-case (短横线分隔命名) 命名。字符串模板除外。
+
+- 每次父级组件发生更新时，子组件中所有的 prop 都将会刷新为最新的值。
+
+- 如果试图修改子组件中props值的时候分两种情况： **(千万千万不要去直接修改props传入的值)**
+    + 对象和数组是通过引用传递的
+    + 其他原始值
+:::
+
+### （2）ref 与 $parent / $children 适用 父子组件通信
+
+- ref：如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例
+
+::: tip 示例
+```Vue
+//  在我们需要获取实例的地方定义ref
+<div name="divName" ref="divRef">123</div>
+<my-component ref="myRef"></my-component>
+```
+```javascript
+//  然后我们在js中通过$refs方式获取该实例
+this.$refs.divRef; // dom元素
+this.$refs.myRef; // 组件实例
+```
+:::
+
+- $parent / $children：访问父 / 子实例
+    + $parent
+    ::: tip 示例
+    ```Vue
+    //  父组件中
+    <template>
+        <my-component></my-component>
+    </template>
+    
+    <script>
+        export default{
+            data(){
+                return{
+                    num: ''
+                }
+            }
+        }
+    </script>
+    ```
+
+    ```Vue
+    //  子组件中
+    <template>
+        <div>我是子组件</div>
+        <el-button @click="getParent"></el-button>
+    </template>
+
+    <script>
+        export default{
+            data(){},
+            methods:{
+                getParent(){
+                    //  通过$parent我们可以获取父组件实例，并将他的属性num改为1
+                    this.$parent.num = 1
+                }
+            }
+        }
+    </script>
+    ```
+    :::
+
+    + $children
+    ::: tip 示例
+    ```Vue
+    //  父组件中
+    <template>
+        <A></A>
+        <B></B>
+    </template>
+
+    <script>
+        export default{
+            data(){},
+            mounted(){
+                //  通过$children可以获取到A和B两个子组件的实例
+                console.log('children:',this.$children)
+            }
+        }
+    </script>
+    ```
+    :::
+    
+
+### （3）EventBus （$emit / $on） 适用于 父子、隔代、兄弟组件通信
+
+- 这种方法通过一个空的 Vue 实例作为中央事件总线（事件中心），用它来触发事件和监听事件，从而实现任何组件间的通信，包括父子、隔代、兄弟组件。
+
+::: tip 示例
+```javascript
+// eventBus.js
+import Vue from "vue";
+
+const eventBus = new Vue();
+
+export { eventBus };
+```
+
+```javascript
+// on组件
+import eventBus from 'common/js/eventBus.js';
+
+created() {  
+        eventBus.$on('getTarget', target => {  
+            console.log(target);  
+        });  
+}
+```
+
+```javascript
+// emit组件
+import eventBus from 'common/js/eventBus.js';
+
+methods: {  
+    addCart(event) {  
+        eventBus.$emit('getTarget', event.target);   
+    }  
+} 
+```
+:::
+
+### （4）$attrs/$listeners 适用于 隔代组件通信
+
+- $attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 ( class 和 style 除外 )。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind="$attrs" 传入内部组件。通常配合 inheritAttrs 选项一起使用。
+
+- $listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="$listeners" 传入内部组件
+
+### （5）provide / inject 适用于 隔代组件通信
+
+祖先组件中通过 provider 来提供变量，然后在子孙组件中通过 inject 来注入变量。 provide / inject API 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。
+
+### （6）Vuex 适用于 父子、隔代、兄弟组件通信
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。
+
+- Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+
+- 改变 store 中的状态的唯一途径就是显式地提交  (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+
+### 你使用过 Vuex 吗？
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。
+
+（1）Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+
+（2）改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+
+主要包括以下几个模块：
+
+- **State**：定义了应用状态的数据结构，可以在这里设置默认的初始状态。
+
+- **Getter**：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。
+
+- **Mutation**：是唯一更改 store 中状态的方法，且必须是同步函数。
+
+- **Action**：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。
+
+- **Module**：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。
+
