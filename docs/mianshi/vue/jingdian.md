@@ -678,7 +678,8 @@ Model–View–ViewModel （MVVM） 是一个软件架构设计模式，由微�
 
 MVVM 源自于经典的 Model–View–Controller（MVC）模式  ，MVVM 的出现促进了前端开发与后端业务逻辑的分离，极大地提高了前端开发效率，MVVM 的核心是 ViewModel 层，它就像是一个中转站（value converter），负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用。如下图所示：
 
-![](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871ec53fba)
+![](https://tva1.sinaimg.cn/large/006tNbRwly1g9i78mvoxyj30qu08nmxc.jpg)
+[原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871ec53fba)
 
 （1）Model 层
 
@@ -740,7 +741,8 @@ var app = new Vue({
 ## Vue 是如何实现数据双向绑定的？
 Vue 数据双向绑定主要是指：数据变化更新视图，视图变化更新数据，如下图所示：
 
-![](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f2e5f80)
+![](https://tva1.sinaimg.cn/large/006tNbRwly1g9i77f3ar9j30do049dfp.jpg)
+[原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f2e5f80)
 
 即：
 
@@ -762,7 +764,8 @@ Vue 主要通过以下 4 个步骤来实现数据双向绑定的：
 
 以上四个步骤的流程图表示如下
 
-![](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f729d89)
+![](https://tva1.sinaimg.cn/large/006tNbRwly1g9i76pzjukj30lt0g2aaa.jpg)
+[原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f729d89)
 
 ## Vue 框架怎么实现对象和数组的监听？
 如果被问到 Vue 怎么实现数据双向绑定，大家肯定都会回答 通过 Object.defineProperty() 对数据进行劫持，但是  Object.defineProperty() 只能对属性进行数据劫持，不能对整个对象进行劫持，同理无法对数组进行劫持，但是我们在使用 Vue 框架中都知道，Vue 能检测到对象和数组（部分方法的操作）的变化，那它是怎么实现的呢？我们查看相关代码如下：
