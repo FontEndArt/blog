@@ -228,7 +228,7 @@ Vue 实例有一个完整的生命周期，也就是从开始创建、初始化�
 |activited|keep-alive 专属，组件被激活时调用|
 |deactivated|keep-alive 专属，组件被销毁时调用|
 |beforeDestory|组件销毁前调用|
-|destoryed|组件销毁后调用|
+|destroyed|组件销毁后调用|
 
 ![](https://tva1.sinaimg.cn/large/006y8mN6gy1g9cn6kxlnwj30u00xm48f.jpg)
 [原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca74f183827f46?imageslim)
@@ -589,4 +589,384 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 
 - **Action**：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。
 
 - **Module**：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。
+
+## 使用过 Vue SSR 吗？说说 SSR？
+
+> Vue.js 是构建客户端应用程序的框架。默认情况下，可以在浏览器中输出 Vue 组件，进行生成 DOM 和操作 DOM。然而，也可以将同一个组件渲染为服务端的 HTML 字符串，将它们直接发送到浏览器，最后将这些静态标记"激活"为客户端上完全可交互的应用程序。
+
+> 即：SSR大致的意思就是vue在客户端将标签渲染成的整个 html 片段的工作在服务端完成，服务端形成的html 片段直接返回给客户端这个过程就叫做服务端渲染。
+
+### （1）服务端渲染的优点：
+
+- 更好的 SEO： 因为 SPA 页面的内容是通过 Ajax 获取，而搜索引擎爬取工具并不会等待 Ajax 异步完成后再抓取页面内容，所以在 SPA 中是抓取不到页面通过 Ajax 获取到的内容；而 SSR 是直接由服务端返回已经渲染好的页面（数据已经包含在页面中），所以搜索引擎爬取工具可以抓取渲染好的页面；
+
+- 更快的内容到达时间（首屏加载更快）： SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进行页面的渲染，文件下载等需要一定的时间等，所以首屏渲染需要一定的时间；SSR 直接由服务端渲染好页面直接返回显示，无需等待下载 js 文件及再去渲染等，所以 SSR 有更快的内容到达时间；
+
+### （2) 服务端渲染的缺点：
+
+- 更多的开发条件限制： 例如服务端渲染只支持 beforCreate 和 created 两个钩子函数，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；
+
+- 更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。
+
+## vue-router 路由模式有几种？
+
+vue-router 有 3 种路由模式：hash、history、abstract，对应的源码如下所示：
+```js
+switch (mode) {
+  case 'history':
+	this.history = new HTML5History(this, options.base)
+	break
+  case 'hash':
+	this.history = new HashHistory(this, options.base, this.fallback)
+	break
+  case 'abstract':
+	this.history = new AbstractHistory(this, options.base)
+	break
+  default:
+	if (process.env.NODE_ENV !== 'production') {
+	  assert(false, `invalid mode: ${mode}`)
+	}
+}
+```
+其中，3 种路由模式的说明如下：
+
+- hash:  使用 URL hash 值来作路由。支持所有浏览器，包括不支持 HTML5 History Api 的浏览器；
+
+- history :  依赖 HTML5 History API 和服务器配置。具体可以查看 HTML5 History 模式；
+
+- abstract :  支持所有 JavaScript 运行环境，如 Node.js 服务器端。如果发现没有浏览器的 API，路由会自动强制进入这个模式.
+
+## 能说下 vue-router 中常用的 hash 和 history 路由模式实现原理吗？
+
+### （1）hash 模式的实现原理
+
+早期的前端路由的实现就是基于 location.hash 来实现的。其实现原理很简单，location.hash 的值就是 URL 中 # 后面的内容。比如下面这个网站，它的 location.hash 的值为 '#search'：
+
+```js
+https://www.word.com#search
+```
+
+hash 路由模式的实现主要是基于下面几个特性：
+
+- URL 中 hash 值只是客户端的一种状态，也就是说当向服务器端发出请求时，hash 部分不会被发送；
+
+- hash 值的改变，都会在浏览器的访问历史中增加一个记录。因此我们能通过浏览器的回退、前进按钮控制hash 的切换；
+
+- 可以通过 a 标签，并设置 href 属性，当用户点击这个标签后，URL 的 hash 值会发生改变；或者使用  JavaScript 来对 loaction.hash 进行赋值，改变 URL 的 hash 值；
+
+- 我们可以使用 hashchange 事件来监听 hash 值的变化，从而对页面进行跳转（渲染）。
+
+### （2）history 模式的实现原理
+HTML5 提供了 History API 来实现 URL 的变化。其中做最主要的 API 有以下两个：history.pushState() 和 history.repalceState()。这两个 API 可以在不进行刷新的情况下，操作浏览器的历史纪录。唯一不同的是，前者是新增一个历史记录，后者是直接替换当前的历史记录，如下所示：
+
+```js
+window.history.pushState(null, null, path);
+window.history.replaceState(null, null, path);
+```
+
+history 路由模式的实现主要基于存在下面几个特性：
+
+- pushState 和 repalceState 两个 API 来操作实现 URL 的变化 ；
+
+- 我们可以使用 popstate  事件来监听 url 的变化，从而对页面进行跳转（渲染）；
+
+- history.pushState() 或 history.replaceState() 不会触发 popstate 事件，这时我们需要手动触发页面跳转（渲染）。
+
+## 什么是 MVVM？
+
+Model–View–ViewModel （MVVM） 是一个软件架构设计模式，由微软 WPF 和 Silverlight 的架构师 Ken Cooper 和 Ted Peters 开发，是一种简化用户界面的事件驱动编程方式。由 John Gossman（同样也是 WPF 和 Silverlight 的架构师）于2005年在他的博客上发表
+
+MVVM 源自于经典的 Model–View–Controller（MVC）模式  ，MVVM 的出现促进了前端开发与后端业务逻辑的分离，极大地提高了前端开发效率，MVVM 的核心是 ViewModel 层，它就像是一个中转站（value converter），负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用。如下图所示：
+
+![](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871ec53fba)
+
+（1）Model 层
+
+Model 是指数据模型，泛指后端进行的各种业务逻辑处理和数据操控，对于前端来说就是后端提供的 api 接口。
+
+```js
+{
+    "url": "/your/server/data/api",
+    "res": {
+        "success": true,
+        "name": "IoveC",
+        "domain": "www.cnblogs.com"
+    }
+}
+```
+
+（2）View 层
+
+View 是视图层，也就是用户界面。前端主要由 HTML 和 CSS 来构建。
+
+```Vue
+<div id="app">
+    <p>{{message}}</p>
+    <button v-on:click="showMessage()">Click me</button>
+</div>
+```
+
+（3）ViewModel 层
+
+ViewModel 是由前端开发人员组织生成和维护的视图数据层。在这一层，前端开发者对从后端获取的 Model 数据进行转换处理，做二次封装，以生成符合 View 层使用预期的视图数据模型。需要注意的是 ViewModel 所封装出来的数据模型包括视图的状态和行为两部分，而 Model 层的数据模型是只包含状态的，比如页面的这一块展示什么，而页面加载进来时发生什么，点击这一块发生什么，这一块滚动时发生什么这些都属于视图行为（交互），视图状态和行为都封装在了 ViewModel 里。这样的封装使得 ViewModel 可以完整地去描述 View 层。
+
+MVVM 框架实现了双向绑定，这样 ViewModel 的内容会实时展现在 View 层，前端开发者再也不必低效又麻烦地通过操纵 DOM 去更新视图，MVVM 框架已经把最脏最累的一块做好了，我们开发者只需要处理和维护 ViewModel，更新数据视图就会自动得到相应更新。这样 View 层展现的不是 Model 层的数据，而是 ViewModel 的数据，由 ViewModel 负责与 Model 层交互，这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，它是前后端分离方案实施的重要一环。
+
+```js
+var app = new Vue({
+    el: '#app',
+    data: {  // 用于描述视图状态   
+        message: 'Hello Vue!', 
+    },
+    methods: {  // 用于描述视图行为  
+        showMessage(){
+            let vm = this;
+            alert(vm.message);
+        }
+    },
+    created(){
+        let vm = this;
+        // Ajax 获取 Model 层的数据
+        ajax({
+            url: '/your/server/data/api',
+            success(res){
+                vm.message = res;
+            }
+        });
+    }
+})
+```
+
+## Vue 是如何实现数据双向绑定的？
+Vue 数据双向绑定主要是指：数据变化更新视图，视图变化更新数据，如下图所示：
+
+![](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f2e5f80)
+
+即：
+
+- 输入框内容变化时，Data 中的数据同步变化。即 View => Data 的变化。
+
+- Data 中的数据变化时，文本节点的内容同步变化。即 Data => View 的变化。
+
+其中，View 变化更新 Data ，可以通过事件监听的方式来实现，所以 Vue 的数据双向绑定的工作主要是如何根据 Data 变化更新 View。
+
+Vue 主要通过以下 4 个步骤来实现数据双向绑定的：
+
+实现一个监听器 Observer：对数据对象进行遍历，包括子属性对象的属性，利用 Object.defineProperty() 对属性都加上 setter 和 getter。这样的话，给这个对象的某个值赋值，就会触发 setter，那么就能监听到了数据变化。
+
+实现一个解析器 Compile：解析 Vue 模板指令，将模板中的变量都替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，调用更新函数进行数据更新。
+
+实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。
+
+实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。
+
+以上四个步骤的流程图表示如下
+
+![](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f729d89)
+
+## Vue 框架怎么实现对象和数组的监听？
+如果被问到 Vue 怎么实现数据双向绑定，大家肯定都会回答 通过 Object.defineProperty() 对数据进行劫持，但是  Object.defineProperty() 只能对属性进行数据劫持，不能对整个对象进行劫持，同理无法对数组进行劫持，但是我们在使用 Vue 框架中都知道，Vue 能检测到对象和数组（部分方法的操作）的变化，那它是怎么实现的呢？我们查看相关代码如下：
+
+```js
+  /**
+   * Observe a list of Array items.
+   */
+  observeArray (items: Array<any>) {
+    for (let i = 0, l = items.length; i < l; i++) {
+      observe(items[i])  // observe 功能为监测数据的变化
+    }
+  }
+
+  /**
+   * 对属性进行递归遍历
+   */
+  let childOb = !shallow && observe(val) // observe 功能为监测数据的变化
+```
+
+通过以上 Vue 源码部分查看，我们就能知道 Vue 框架是通过遍历数组 和递归遍历对象，从而达到利用 Object.defineProperty() 也能对对象和数组（部分方法的操作）进行监听。
+
+## Proxy 与 Object.defineProperty 优劣对比
+
+### Proxy 的优势如下:
+
+- Proxy 可以直接监听对象而非属性；
+
+- Proxy 可以直接监听数组的变化；
+
+- Proxy 有多达 13 种拦截方法,不限于 apply、ownKeys、deleteProperty、has 等等是 Object.defineProperty 不具备的；
+
+- Proxy 返回的是一个新对象,我们可以只操作新的对象达到目的,而 Object.defineProperty 只能遍历对象属性直接修改；
+
+- Proxy 作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利；
+
+### Object.defineProperty 的优势如下:
+
+- 兼容性好，支持 IE9，而 Proxy 的存在浏览器兼容性问题,而且无法用 polyfill 磨平，因此 Vue 的作者才声明需要等到下个大版本( 3.0 )才能用 Proxy 重写。
+
+## Vue 怎么用 vm.$set() 解决对象新增属性不能响应的问题？
+
+受现代 JavaScript 的限制 ，Vue 无法检测到对象属性的添加或删除。由于 Vue 会在初始化实例时对属性执行 ```getter/setter``` 转化，所以属性必须在 data 对象上存在才能让 Vue 将它转换为响应式的。但是 Vue 提供了 ```Vue.set (object, propertyName, value) / vm.$set (object, propertyName, value)```  来实现为对象添加响应式属性，那框架本身是如何实现的呢？
+
+我们查看对应的 Vue 源码：```vue/src/core/instance/index.js```
+```js
+export function set (target: Array<any> | Object, key: any, val: any): any {
+  // target 为数组  
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    // 修改数组的长度, 避免索引>数组长度导致splcie()执行有误
+    target.length = Math.max(target.length, key)
+    // 利用数组的splice变异方法触发响应式  
+    target.splice(key, 1, val)
+    return val
+  }
+  // key 已经存在，直接修改属性值  
+  if (key in target && !(key in Object.prototype)) {
+    target[key] = val
+    return val
+  }
+  const ob = (target: any).__ob__
+  // target 本身就不是响应式数据, 直接赋值
+  if (!ob) {
+    target[key] = val
+    return val
+  }
+  // 对属性进行响应式处理
+  defineReactive(ob.value, key, val)
+  ob.dep.notify()
+  return val
+}
+```
+
+我们阅读以上源码可知，vm.$set 的实现原理是：
+
+- 如果目标是数组，直接使用数组的 splice 方法触发相应式；
+
+- 如果目标是对象，会先判读属性是否存在、对象是否是响应式，最终如果要对属性进行响应式处理，则是通过调用   defineReactive 方法进行响应式处理（ defineReactive 方法就是  Vue 在初始化对象时，给对象属性采用 Object.defineProperty 动态添加 getter 和 setter 的功能所调用的方法）
+
+## 虚拟 DOM 的优缺点？
+
+### 优点：
+
+- **保证性能下限**： 框架的虚拟 DOM 需要适配任何上层 API 可能产生的操作，它的一些 DOM 操作的实现必须是普适的，所以它的性能并不是最优的；但是比起粗暴的 DOM 操作性能要好很多，因此框架的虚拟 DOM 至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；
+
+- **无需手动操作 DOM**： 我们不再需要手动去操作 DOM，只需要写好 View-Model 的代码逻辑，框架会根据虚拟 DOM 和 数据双向绑定，帮我们以可预期的方式更新视图，极大提高我们的开发效率；
+
+- **跨平台**： 虚拟 DOM 本质上是 JavaScript 对象,而 DOM 与平台强相关，相比之下虚拟 DOM 可以进行更方便地跨平台操作，例如服务器渲染、weex 开发等等。
+
+### 缺点:
+
+- **无法进行极致优化**： 虽然虚拟 DOM + 合理的优化，足以应对绝大部分应用的性能需求，但在一些性能要求极高的应用中虚拟 DOM 无法进行针对性的极致优化。
+
+## 虚拟 DOM 实现原理？
+
+虚拟 DOM 的实现原理主要包括以下 3 部分：
+
+- 用 JavaScript 对象模拟真实 DOM 树，对真实 DOM 进行抽象；
+
+- diff 算法 — 比较两棵虚拟 DOM 树的差异；
+
+- pach 算法 — 将两个虚拟 DOM 对象的差异应用到真正的 DOM 树。
+
+## Vue 中的 key 有什么作用？
+
+key 是为 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快速。Vue 的 diff 过程可以概括为：oldCh 和 newCh 各有两个头尾的变量 oldStartIndex、oldEndIndex 和 newStartIndex、newEndIndex，它们会新节点和旧节点会进行两两对比，即一共有4种比较方式：newStartIndex 和oldStartIndex 、newEndIndex 和  oldEndIndex 、newStartIndex 和 oldEndIndex 、newEndIndex 和 oldStartIndex，如果以上 4 种比较都没匹配，如果设置了key，就会用 key 再进行比较，在比较的过程中，遍历会往中间靠，一旦 StartIdx > EndIdx 表明 oldCh 和 newCh 至少有一个已经遍历完了，就会结束比较。
+
+所以 Vue 中 key 的作用是：key 是为 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快速
+
+**更准确**：因为带 key 就不是就地复用了，在 sameNode 函数 a.key === b.key 对比中可以避免就地复用的情况。所以会更加准确。
+
+**更快速**：利用 key 的唯一性生成 map 对象来获取对应节点，比遍历方式更快，源码如下：
+
+```js
+function createKeyToOldIdx (children, beginIdx, endIdx) {
+  let i, key
+  const map = {}
+  for (i = beginIdx; i <= endIdx; ++i) {
+    key = children[i].key
+    if (isDef(key)) map[key] = i
+  }
+  return map
+}
+```
+
+## 你有对 Vue 项目进行哪些优化？
+
+### （1）代码层面的优化
+
+- v-if 和 v-show 区分使用场景
+- computed 和 watch  区分使用场景
+- v-for 遍历必须为 item 添加 key，且避免同时使用 v-if
+- 长列表性能优化
+- 事件的销毁
+- 图片资源懒加载
+- 路由懒加载
+- 第三方插件的按需引入
+- 优化无限列表性能
+- 服务端渲染 SSR or 预渲染
+
+### （2）Webpack 层面的优化
+
+- Webpack 对图片进行压缩
+- 减少 ES6 转为 ES5 的冗余代码
+- 提取公共代码
+- 模板预编译
+- 提取组件的 CSS
+- 优化 SourceMap
+- 构建结果输出分析
+- Vue 项目的编译优化
+
+### （3）基础的 Web 技术的优化
+
+- 开启 gzip 压缩
+- 浏览器缓存
+- CDN 的使用
+- 使用 Chrome Performance 查找性能瓶颈
+
+## 对于即将到来的 vue3.0 特性你有什么了解的吗？
+
+Vue 3.0 正走在发布的路上，Vue 3.0 的目标是让 Vue 核心变得更小、更快、更强大，因此 Vue 3.0 增加以下这些新特性：
+
+### （1）监测机制的改变
+3.0 将带来基于代理 Proxy 的 observer 实现，提供全语言覆盖的反应性跟踪。这消除了 Vue 2 当中基于 Object.defineProperty 的实现所存在的很多限制：
+
+- 只能监测属性，不能监测对象
+
+- 检测属性的添加和删除；
+
+- 检测数组索引和长度的变更；
+
+- 支持 Map、Set、WeakMap 和 WeakSet。
+
+新的 observer 还提供了以下特性：
+
+- **用于创建 observable 的公开 API**。这为中小规模场景提供了简单轻量级的跨组件状态管理解决方案。
+- **默认采用惰性观察**。在 2.x 中，不管反应式数据有多大，都会在启动时被观察到。如果你的数据集很大，这可能会在应用启动时带来明显的开销。在 3.x 中，只观察用于渲染应用程序最初可见部分的数据。
+- **更精确的变更通知**。在 2.x 中，通过 Vue.set 强制添加新属性将导致依赖于该对象的 watcher 收到变更通知。在 3.x 中，只有依赖于特定属性的 watcher 才会收到通知。
+- **不可变的 observable**：我们可以创建值的“不可变”版本（即使是嵌套属性），除非系统在内部暂时将其“解禁”。这个机制可用于冻结 prop 传递或 Vuex 状态树以外的变化。
+- **更好的调试功能**：我们可以使用新的 renderTracked 和 renderTriggered 钩子精确地跟踪组件在什么时候以及为什么重新渲染。
+
+### （2）模板
+
+模板方面没有大的变更，只改了作用域插槽，2.x 的机制导致作用域插槽变了，父组件会重新渲染，而 3.0 把作用域插槽改成了函数的方式，这样只会影响子组件的重新渲染，提升了渲染的性能。
+
+同时，对于 render 函数的方面，vue3.0 也会进行一系列更改来方便习惯直接使用 api 来生成 vdom 。
+
+### （3）对象式的组件声明方式
+
+vue2.x 中的组件是通过声明的方式传入一系列 option，和 TypeScript 的结合需要通过一些装饰器的方式来做，虽然能实现功能，但是比较麻烦。3.0 修改了组件的声明方式，改成了类式的写法，这样使得和 TypeScript 的结合变得很容易。
+
+此外，vue 的源码也改用了 TypeScript 来写。其实当代码的功能复杂之后，必须有一个静态类型系统来做一些辅助管理。现在 vue3.0 也全面改用 TypeScript 来重写了，更是使得对外暴露的 api 更容易结合 TypeScript。静态类型系统对于复杂代码的维护确实很有必要。
+
+### （4）其它方面的更改
+
+vue3.0 的改变是全面的，上面只涉及到主要的 3 个方面，还有一些其他的更改：
+
+- 支持自定义渲染器，从而使得 weex 可以通过自定义渲染器的方式来扩展，而不是直接 fork 源码来改的方式。
+
+- 支持 Fragment（多个根节点）和 Protal（在 dom 其他部分渲染组建内容）组件，针对一些特殊的场景做了处理。
+
+- 基于 treeshaking 优化，提供了更多的内置功能。
+
+## 说说你使用 Vue 框架踩过最大的坑是什么？怎么解决的？
+
+> 等待回头写
 
