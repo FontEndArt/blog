@@ -3,7 +3,7 @@ source: 掘金 + 前端小然子补充
 sourceAuthor: 我是你的超级英雄（掘金） + 前端小然子
 ---
 
-# Vue经典面试题合集篇（未完）
+# Vue经典面试题合集篇
 
 ## 说说你对 SPA 单页面的理解，它的优缺点分别是什么？
 SPA（single-page application）仅在Web页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
@@ -582,13 +582,57 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 
 
 - **State**：定义了应用状态的数据结构，可以在这里设置默认的初始状态。
 
+> 用一个对象就包含了全部的应用层级状态。注意，Vuex 使用单一状态树，维持 state 作为“单一数据源”。意味着每个应用将仅仅包含一个 store 实例。
+
 - **Getter**：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。
+
+> getter 可以认为是 store 中的计算属性。就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
 
 - **Mutation**：是唯一更改 store 中状态的方法，且必须是同步函数。
 
+> 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+
 - **Action**：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。
 
+::: tip 区别
+Action 类似于 mutation，不同在于：
+
+    - Action 提交的是 mutation，而不是直接变更状态。
+
+    - Action 可以包含任意异步操作。
+
+:::
+
 - **Module**：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。
+
+::: tip 介绍
+为了防止数据过于臃肿，Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割:
+
+```js
+const moduleA = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}
+
+const moduleB = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+})
+
+store.state.a // -> moduleA 的状态
+store.state.b // -> moduleB 的状态
+```
+:::
 
 ## 使用过 Vue SSR 吗？说说 SSR？
 
@@ -679,6 +723,7 @@ Model–View–ViewModel （MVVM） 是一个软件架构设计模式，由微�
 MVVM 源自于经典的 Model–View–Controller（MVC）模式  ，MVVM 的出现促进了前端开发与后端业务逻辑的分离，极大地提高了前端开发效率，MVVM 的核心是 ViewModel 层，它就像是一个中转站（value converter），负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用。如下图所示：
 
 ![](https://tva1.sinaimg.cn/large/006tNbRwly1g9i78mvoxyj30qu08nmxc.jpg)
+
 [原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871ec53fba)
 
 （1）Model 层
@@ -742,6 +787,7 @@ var app = new Vue({
 Vue 数据双向绑定主要是指：数据变化更新视图，视图变化更新数据，如下图所示：
 
 ![](https://tva1.sinaimg.cn/large/006tNbRwly1g9i77f3ar9j30do049dfp.jpg)
+
 [原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f2e5f80)
 
 即：
@@ -765,6 +811,7 @@ Vue 主要通过以下 4 个步骤来实现数据双向绑定的：
 以上四个步骤的流程图表示如下
 
 ![](https://tva1.sinaimg.cn/large/006tNbRwly1g9i76pzjukj30lt0g2aaa.jpg)
+
 [原图地址](https://user-gold-cdn.xitu.io/2019/8/19/16ca75871f729d89)
 
 ## Vue 框架怎么实现对象和数组的监听？

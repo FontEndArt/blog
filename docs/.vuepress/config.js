@@ -4,8 +4,9 @@ const Nav = [
     {
         text: '面试合集',
         items: [
+            { text: 'HTML', link: '/mianshi/html/' },
             { text: 'Vue', link: '/mianshi/vue/' },
-            { text: 'React', link: '/mianshi/react/' }
+            // { text: 'React', link: '/mianshi/react/' }
         ]
     }
 ];
@@ -46,6 +47,9 @@ module.exports = {
             ],
             '/mianshi/vue': [
                 ...router.vue
+            ],
+            '/mianshi/html': [
+                ...router.html
             ]
         },
         // CNZZ统计
