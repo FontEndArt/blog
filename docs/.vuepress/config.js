@@ -1,6 +1,7 @@
 const router = require('./router');
 const Nav = [
     { text: '进阶', link: '/guide/' },
+    { text: '91算法', link: '/91/' },
     {
         text: '面试合集',
         items: [
@@ -44,6 +45,16 @@ module.exports = {
                     ]
                 },
                 ...router.guide,
+            ],
+            '/91/': [
+                {
+                    title: "91天学算法",
+                    collapsable: false,
+                    children: [
+                        '/91/',
+                    ]
+                },
+                ...router._91,
             ],
             '/mianshi/vue': [
                 ...router.vue

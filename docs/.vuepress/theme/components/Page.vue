@@ -8,7 +8,7 @@
       </h2>
       <p>感谢大家阅读我的文章，如果对我感兴趣可以点击页面右上角，帮我点个star。</p>
       <p>作者：{{ sourceOption.author }}</p>
-      <p>
+      <p style="word-break: break-all;">
         链接：
         <a :href="sourceOption.link" target="_blank" rel="noopener noreferrer">
           {{ sourceOption.link }}
